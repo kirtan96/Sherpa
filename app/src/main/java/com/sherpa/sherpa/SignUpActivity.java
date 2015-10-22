@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                               // Log.d(TAG, "User update saved!");
+                                //Log.d(TAG, "User update saved!");
                                 //Log.d(TAG, "The object id (from User) is: " + user.getParseObjectId());
                             } else {
                                // Log.d(TAG, "User update error: " + e);

@@ -9,7 +9,7 @@
     <application
         android:name=".SherpaApplication"
         android:allowBackup="true"
-        android:icon="@drawable/sherpa_logo"
+        android:icon="@mipmap/sherpa_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
