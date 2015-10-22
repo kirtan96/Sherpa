@@ -19,4 +19,5 @@
     </string-array>
     <string name="title_activity_recepients">Choose Recipients</string>
     <string name="app_id">452763198263603</string>
+    <string name="action_logout">Logout</string>
 </resources>
