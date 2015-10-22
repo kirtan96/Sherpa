@@ -44,8 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:id="@+id/signupText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="49dp"
-        android:layout_below="@+id/loginButton" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
