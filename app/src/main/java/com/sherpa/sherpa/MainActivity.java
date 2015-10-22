@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        welcome = (TextView) findViewById(R.id.welcome);
+
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser == null)
         {
@@ -30,11 +29,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            Log.i(TAG, currentUser.getUsername());
+            welcome = (TextView) findViewById(R.id.welcome);
+            welcome.setText("Welcome " + currentUser.getString("firstname") + " " +
+                    currentUser.getString("lastname"));
         }
-
-        welcome.setText("Welcome " + currentUser.getString("firstname") + " " +
-                currentUser.getString("lastname"));
     }
 
     @Override
