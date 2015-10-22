@@ -9,10 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,17 +33,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, currentUser.getUsername());
         }
 
-
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Profile");
-        query.getInBackground("sbTnjse1B5", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    welcome.setText("Welcome " + object.getString("firstname"));
-                } else {
-                    welcome.setText("something went wrong");
-                }
-            }
-        });
+        welcome.setText("Welcome " + currentUser.getString("firstname") + " " +
+                currentUser.getString("lastname"));
     }
 
     @Override

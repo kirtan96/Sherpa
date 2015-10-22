@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -79,21 +77,11 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setUsername(username);
                     user.setPassword(password);
                     user.setEmail(email);
-                    final ParseObject profile = new ParseObject("Profile");
-                    profile.put("phone", phone);
-                    profile.put("firstname", fName);
-                    profile.put("lastname", lName);
-                    profile.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e == null) {
-                                //Log.d(TAG, "User update saved!");
-                                //Log.d(TAG, "The object id (from User) is: " + user.getParseObjectId());
-                            } else {
-                               // Log.d(TAG, "User update error: " + e);
-                            }
-                        }
-                });
+                    user.put("phone", phone);
+                    user.put("firstname", fName);
+                    user.put("lastname", lName);
+                    user.put("username", username);
+                    user.saveInBackground();
 
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
