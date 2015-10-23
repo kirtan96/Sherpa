@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
@@ -28,10 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_sign_up);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         firstName = (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
@@ -83,19 +79,19 @@ public class SignUpActivity extends AppCompatActivity {
                     user.put("username", username);
                     user.saveInBackground();
 
-                user.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        setProgressBarIndeterminateVisibility(false);
-                        if (e == null) {
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                            builder.setMessage(e.getMessage())
-                                    .setTitle(R.string.sign_up_title_error)
+                    user.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            setProgressBarIndeterminateVisibility(false);
+                            if (e == null) {
+                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+                                builder.setMessage(e.getMessage())
+                                        .setTitle(R.string.sign_up_title_error)
                                         .setPositiveButton(R.string.ok, null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
