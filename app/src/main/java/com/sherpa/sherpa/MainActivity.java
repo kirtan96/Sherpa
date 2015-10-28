@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
@@ -13,6 +15,8 @@ import com.parse.ParseUser;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     protected TextView welcome;
+    protected Button tg;
+    protected Button t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,23 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             welcome = (TextView) findViewById(R.id.welcome);
+            tg = (Button) findViewById(R.id.tgButton);
+            t = (Button) findViewById(R.id.touristButton);
             welcome.setText("Welcome " + currentUser.getString("firstname") + " " +
                     currentUser.getString("lastname"));
+            tg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
+            t.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 
