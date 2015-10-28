@@ -51,6 +51,17 @@
 
     </FrameLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In which city will you guide today?"
+        android:id="@+id/textView4"
+        android:layout_gravity="left|top"
+        android:textColor="@android:color/white"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/frameLayout" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,15 +73,68 @@
         android:layout_marginBottom="5dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="In which city will you guide today?"
-        android:id="@+id/textView4"
-        android:layout_gravity="left|top"
-        android:textColor="@android:color/white"
+        android:text="How much will you charge per hour?"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/city"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/frameLayout" />
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$"
+        android:id="@+id/textView8"
+        android:layout_alignTop="@+id/cost"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="24dp"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cost"
+        android:layout_below="@+id/textView6"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_toLeftOf="@+id/frameLayout2"
+        android:layout_toStartOf="@+id/frameLayout2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="per"
+        android:id="@+id/textView7"
+        android:textColor="@android:color/white"
+        android:textSize="24dp"
+        android:layout_alignTop="@+id/cost"
+        android:layout_alignLeft="@+id/frameLayout2"
+        android:layout_alignStart="@+id/frameLayout2" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hour"
+        android:id="@+id/hourButton"
+        android:checked="true"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day"
+        android:id="@+id/dayButton"
+        android:layout_alignTop="@+id/hourButton"
+        android:layout_toRightOf="@+id/hourButton"
+        android:layout_toEndOf="@+id/hourButton"
+        android:checked="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -85,69 +149,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="How much will you charge per hour?"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/city"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="5dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/cost"
-        android:layout_below="@+id/textView6"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toLeftOf="@+id/frameLayout2"
-        android:layout_toStartOf="@+id/frameLayout2" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hour"
-        android:id="@+id/hourButton"
-        android:checked="true"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="per"
-        android:id="@+id/textView7"
-        android:textColor="@android:color/white"
-        android:textSize="24dp"
-        android:layout_alignTop="@+id/cost"
-        android:layout_alignLeft="@+id/frameLayout2"
-        android:layout_alignStart="@+id/frameLayout2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="$"
-        android:id="@+id/textView8"
-        android:layout_alignTop="@+id/cost"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="24dp"
-        android:textColor="@android:color/white" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Day"
-        android:id="@+id/dayButton"
-        android:layout_alignTop="@+id/hourButton"
-        android:layout_toRightOf="@+id/hourButton"
-        android:layout_toEndOf="@+id/hourButton"
-        android:checked="false" />
 
 </RelativeLayout>
