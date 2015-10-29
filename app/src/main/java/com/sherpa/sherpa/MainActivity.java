@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser == null)
         {
             navigateToLogin();
@@ -41,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
             tg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(intent);
+                    if(!currentUser.getBoolean("profile"))
+                    {
+                        navigateToEditProfile();
+                    }
+                    else
+                    {
+                        navigateToEditProfile(); //need to change this
+                    }
                 }
             });
             t.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +79,18 @@ public class MainActivity extends AppCompatActivity {
             ParseUser.logOut();
             navigateToLogin();
         }
+        else
+        {
+            navigateToEditProfile();
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void navigateToEditProfile()
+    {
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     private void navigateToLogin()

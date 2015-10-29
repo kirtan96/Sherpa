@@ -78,6 +78,10 @@ public class SignUpActivity extends AppCompatActivity {
                     user.put("lastname", lName);
                     user.put("username", username);
                     user.put("gcity", "");
+                    user.put("cost",0.0);
+                    user.put("places", "");
+                    user.put("available", false);
+                    user.put("profile", false);
                     user.saveInBackground();
 
                     user.signUpInBackground(new SignUpCallback() {

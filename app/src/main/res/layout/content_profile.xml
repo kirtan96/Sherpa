@@ -11,8 +11,8 @@
     android:background="@drawable/bg_gradient">
 
     <FrameLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -28,15 +28,13 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_above="@+id/textView4"
         android:layout_toRightOf="@+id/frameLayout"
-        android:layout_toEndOf="@+id/frameLayout"
-        android:layout_alignBottom="@+id/frameLayout"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/frameLayout2">
+        android:layout_toEndOf="@+id/frameLayout">
 
         <TextView
             android:layout_width="match_parent"
@@ -55,7 +53,11 @@
             android:text="Are you available right now?"
             android:id="@+id/textView5"
             android:layout_gravity="left|center_vertical"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:layout_above="@+id/avyes"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -63,7 +65,10 @@
             android:text="Yes"
             android:id="@+id/avyes"
             android:layout_gravity="left|bottom"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -71,9 +76,12 @@
             android:text="No"
             android:id="@+id/avno"
             android:layout_gravity="center_horizontal|bottom"
-            android:checked="false" />
+            android:checked="false"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/avyes"
+            android:layout_toEndOf="@+id/avyes" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -84,7 +92,8 @@
         android:textColor="@android:color/white"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/frameLayout" />
+        android:layout_below="@+id/frameLayout"
+        android:textSize="18dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -100,13 +109,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How much will you charge per hour?"
+        android:text="How much will you charge per hour/day?"
         android:id="@+id/textView6"
         android:layout_below="@+id/city"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="@android:color/white"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,16 +130,16 @@
         android:textColor="@android:color/white" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/cost"
+        android:singleLine="true"
         android:layout_below="@+id/textView6"
         android:layout_toRightOf="@+id/textView8"
-        android:layout_toLeftOf="@+id/frameLayout2"
-        android:layout_toStartOf="@+id/frameLayout2"
-        android:singleLine="true" />
+        android:layout_toEndOf="@+id/textView8"
+        android:numeric="decimal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,10 +147,10 @@
         android:text="per"
         android:id="@+id/textView7"
         android:textColor="@android:color/white"
-        android:textSize="24dp"
+        android:textSize="20dp"
         android:layout_alignTop="@+id/cost"
-        android:layout_alignLeft="@+id/frameLayout2"
-        android:layout_alignStart="@+id/frameLayout2" />
+        android:layout_toRightOf="@+id/cost"
+        android:layout_toEndOf="@+id/cost" />
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -148,18 +158,21 @@
         android:text="Hour"
         android:id="@+id/hourButton"
         android:checked="true"
+        android:layout_marginLeft="32dp"
         android:layout_alignTop="@+id/textView7"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/textView7"
+        android:layout_toEndOf="@+id/textView7"
+        android:layout_marginStart="32dp" />
 
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Day"
         android:id="@+id/dayButton"
+        android:checked="false"
         android:layout_alignTop="@+id/hourButton"
         android:layout_toRightOf="@+id/hourButton"
-        android:layout_toEndOf="@+id/hourButton"
-        android:checked="false" />
+        android:layout_toEndOf="@+id/hourButton" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -183,7 +196,9 @@
         android:layout_below="@+id/cost"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"
+        android:textSize="18dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -191,7 +206,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/places"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
