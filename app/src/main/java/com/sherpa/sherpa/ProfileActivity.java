@@ -99,8 +99,10 @@ public class ProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (city.getText().length() > 1 &&
-                        places.getText().length() > 1 &&
+                if (city.getText().toString().length() > 1 &&
+                        places.getText().toString().length() > 1 &&
+                        !city.getText().toString().contains("-") &&
+                        !city.getText().toString().contains(",") &&
                         Double.parseDouble(cost.getText().toString()) > 0) {
                     user.put("gcity", city.getText().toString());
                     user.put("cost", Double.parseDouble(cost.getText().toString()));
@@ -113,16 +115,17 @@ public class ProfileActivity extends AppCompatActivity {
                         user.put("costType", "D");
                     }
                     user.saveInBackground();
+                    Intent intent1 = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(intent1);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                    builder.setMessage("Please fill everything in.")
+                    builder.setMessage("Please fill everything in properly.")
                             .setTitle("Oops")
                             .setPositiveButton(R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-                Intent intent1 = new Intent(ProfileActivity.this, MainActivity.class);
-                startActivity(intent1);
+
             }
         });
 
