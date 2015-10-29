@@ -26,9 +26,10 @@ import java.io.ByteArrayOutputStream;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
-    private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLERY = 2;
     ParseUser user;
+    boolean av;
+    boolean h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final boolean[] av = {false};
-        final boolean[] h = {true};
+        //final boolean[] av = {false};
+        //final boolean[] h = {true};
 
         Intent intent = getIntent();
         user = ParseUser.getCurrentUser();
@@ -68,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 avyes.setChecked(true);
                 avno.setChecked(false);
-                av[0] = true;
+                av = true;
             }
         });
         avno.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 avyes.setChecked(false);
                 avno.setChecked(true);
-                av[0] = false;
+                av = false;
             }
         });
         hour.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour.setChecked(true);
                 day.setChecked(false);
-                h[0] = true;
+                h = true;
             }
         });
         day.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour.setChecked(false);
                 day.setChecked(true);
-                h[0] = false;
+                h = false;
             }
         });
         Button save = (Button) findViewById(R.id.saveButton);
@@ -101,11 +102,11 @@ public class ProfileActivity extends AppCompatActivity {
         {
             avyes.setChecked(true);
             avno.setChecked(false);
-            av[0] = true;
+            av = true;
         } else {
             avyes.setChecked(false);
             avno.setChecked(true);
-            av[0] = false;
+            av = false;
         }
         city.setText(user.getString("gcity"));
         cost.setText(user.getDouble("cost") + "");
@@ -113,37 +114,37 @@ public class ProfileActivity extends AppCompatActivity {
         {
             hour.setChecked(true);
             day.setChecked(false);
-            h[0] = true;
+            h = true;
         }
         else
         {
             hour.setChecked(false);
             day.setChecked(true);
-            h[0] = false;
+            h = false;
         }
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-// call android default gallery
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-// ******** code for crop image
-                intent.putExtra("crop", "true");
-                intent.putExtra("aspectX", 0);
-                intent.putExtra("aspectY", 0);
-                intent.putExtra("outputX", 200);
-                intent.putExtra("outputY", 150);
+
 
                 try {
-
+                    Intent intent = new Intent();
+// call android default gallery
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+// ******** code for crop image
+                    intent.putExtra("crop", "true");
+                    intent.putExtra("aspectX", 0);
+                    intent.putExtra("aspectY", 0);
+                    intent.putExtra("outputX", 200);
+                    intent.putExtra("outputY", 150);
                     intent.putExtra("return-data", true);
                     startActivityForResult(Intent.createChooser(intent,
                             "Complete action using"), PICK_FROM_GALLERY);
 
                 } catch (ActivityNotFoundException e) {
-// Do nothing for now
+
                 }
             }
         });
@@ -162,9 +163,9 @@ public class ProfileActivity extends AppCompatActivity {
                     user.put("gcity", city.getText().toString());
                     user.put("cost", Double.parseDouble(cost.getText().toString()));
                     user.put("places", places.getText().toString());
-                    user.put("available", av[0]);
+                    user.put("available", av);
                     user.put("profile", true);
-                    if (h[0]) {
+                    if (h) {
                         user.put("costType", "H");
                     } else {
                         user.put("costType", "D");
@@ -188,15 +189,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == PICK_FROM_CAMERA) {
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                profilePic.setImageBitmap(photo);
-
-            }
-        }
 
         if (requestCode == PICK_FROM_GALLERY) {
             Bundle extras2 = data.getExtras();
