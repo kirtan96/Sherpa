@@ -1,19 +1,28 @@
 package com.sherpa.sherpa;
 
+
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    private ImageView profilePic;
+    private static final int PICK_FROM_CAMERA = 1;
+    private static final int PICK_FROM_GALLERY = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final ParseUser user = ParseUser.getCurrentUser();
+        TextView insImage =(TextView) findViewById(R.id.textView);
+        profilePic = (ImageView) findViewById(R.id.profilePic);
         TextView name = (TextView) findViewById(R.id.name);
         final EditText city = (EditText) findViewById(R.id.city);
         final RadioButton avyes = (RadioButton) findViewById(R.id.avyes);
@@ -74,9 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
             avyes.setChecked(true);
             avno.setChecked(false);
             av[0] = true;
-        }
-        else
-        {
+        } else {
             avyes.setChecked(false);
             avno.setChecked(true);
             av[0] = false;
@@ -95,6 +104,33 @@ public class ProfileActivity extends AppCompatActivity {
             day.setChecked(true);
             h[0] = false;
         }
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+// call android default gallery
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+// ******** code for crop image
+                intent.putExtra("crop", "true");
+                intent.putExtra("aspectX", 0);
+                intent.putExtra("aspectY", 0);
+                intent.putExtra("outputX", 200);
+                intent.putExtra("outputY", 150);
+
+                try {
+
+                    intent.putExtra("return-data", true);
+                    startActivityForResult(Intent.createChooser(intent,
+                            "Complete action using"), PICK_FROM_GALLERY);
+
+                } catch (ActivityNotFoundException e) {
+// Do nothing for now
+                }
+            }
+        });
+
         places.setText(user.getString("places"));
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,4 +169,25 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PICK_FROM_CAMERA) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                profilePic.setImageBitmap(photo);
+
+            }
+        }
+
+        if (requestCode == PICK_FROM_GALLERY) {
+            Bundle extras2 = data.getExtras();
+            if (extras2 != null) {
+                Bitmap photo = extras2.getParcelable("data");
+                profilePic.setImageBitmap(photo);
+
+            }
+        }
+    }
 }

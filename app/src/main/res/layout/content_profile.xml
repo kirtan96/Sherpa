@@ -11,7 +11,7 @@
     android:background="@drawable/bg_gradient">
 
     <FrameLayout
-        android:layout_width="150dp"
+        android:layout_width="165dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -26,6 +26,12 @@
             android:layout_gravity="center"
             android:textSize="12dp" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/profilePic"
+            android:layout_gravity="center" />
+
     </FrameLayout>
 
     <RelativeLayout
@@ -34,7 +40,9 @@
         android:layout_alignParentTop="true"
         android:layout_above="@+id/textView4"
         android:layout_toRightOf="@+id/frameLayout"
-        android:layout_toEndOf="@+id/frameLayout">
+        android:layout_toEndOf="@+id/frameLayout"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/relativeLayout">
 
         <TextView
             android:layout_width="match_parent"
@@ -42,41 +50,10 @@
             android:id="@+id/name"
             android:textSize="24dp"
             android:textColor="@android:color/white"
-            android:layout_gravity="left|top" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Are you available right now?"
-            android:id="@+id/textView5"
-            android:layout_gravity="left|center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="18dp"
-            android:layout_above="@+id/avyes"
+            android:layout_gravity="left|top"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:id="@+id/avyes"
-            android:layout_gravity="left|bottom"
-            android:checked="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No"
-            android:id="@+id/avno"
-            android:layout_gravity="center_horizontal|bottom"
-            android:checked="false"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/avyes"
-            android:layout_toEndOf="@+id/avyes" />
 
     </RelativeLayout>
 
@@ -87,10 +64,11 @@
         android:id="@+id/textView4"
         android:layout_gravity="left|top"
         android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_below="@+id/frameLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/frameLayout"
-        android:textSize="18dp" />
+        android:layout_marginTop="55dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -173,20 +151,6 @@
         android:layout_toRightOf="@+id/hourButton"
         android:layout_toEndOf="@+id/hourButton" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Save"
-        android:id="@+id/saveButton"
-        android:layout_gravity="right|center_vertical"
-        android:background="@drawable/bg_gradient2"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="38dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -209,5 +173,52 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="All the places you will show to the tourist" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you available right now?"
+        android:id="@+id/textView5"
+        android:layout_gravity="left|center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:id="@+id/avyes"
+        android:layout_gravity="left|bottom"
+        android:checked="true"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/cost"
+        android:layout_alignStart="@+id/cost" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:id="@+id/avno"
+        android:layout_gravity="center_horizontal|bottom"
+        android:checked="false"
+        android:layout_below="@+id/textView5"
+        android:layout_toRightOf="@+id/avyes"
+        android:layout_toEndOf="@+id/avyes" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Save"
+        android:id="@+id/saveButton"
+        android:layout_gravity="right|center_vertical"
+        android:background="@drawable/bg_gradient2"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
