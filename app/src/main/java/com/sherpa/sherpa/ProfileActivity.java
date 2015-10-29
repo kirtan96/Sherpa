@@ -73,11 +73,13 @@ public class ProfileActivity extends AppCompatActivity {
         {
             avyes.setChecked(true);
             avno.setChecked(false);
+            av[0] = true;
         }
         else
         {
             avyes.setChecked(false);
             avno.setChecked(true);
+            av[0] = false;
         }
         city.setText(user.getString("gcity"));
         cost.setText(user.getDouble("cost") + "");
@@ -85,17 +87,19 @@ public class ProfileActivity extends AppCompatActivity {
         {
             hour.setChecked(true);
             day.setChecked(false);
+            h[0] = true;
         }
         else
         {
             hour.setChecked(false);
-            hour.setChecked(true);
+            day.setChecked(true);
+            h[0] = false;
         }
         places.setText(user.getString("places"));
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(city.getText().length() > 1 &&
+                if (city.getText().length() > 1 &&
                         places.getText().length() > 1 &&
                         Double.parseDouble(cost.getText().toString()) > 0) {
                     user.put("gcity", city.getText().toString());
@@ -103,18 +107,13 @@ public class ProfileActivity extends AppCompatActivity {
                     user.put("places", places.getText().toString());
                     user.put("available", av[0]);
                     user.put("profile", true);
-                    if(h[0])
-                    {
+                    if (h[0]) {
                         user.put("costType", "H");
-                    }
-                    else
-                    {
+                    } else {
                         user.put("costType", "D");
                     }
                     user.saveInBackground();
-                }
-                else
-                {
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
                     builder.setMessage("Please fill everything in.")
                             .setTitle("Oops")
