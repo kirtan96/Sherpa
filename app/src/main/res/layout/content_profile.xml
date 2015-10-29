@@ -40,9 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name"
-            android:layout_below="@+id/frameLayout"
-            android:layout_toRightOf="@+id/frameLayout"
-            android:layout_toEndOf="@+id/frameLayout"
             android:textSize="24dp"
             android:textColor="@android:color/white"
             android:layout_gravity="left|top" />
@@ -104,7 +101,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="5dp"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:hint="Please write only one city" />
 
     <TextView
         android:layout_width="match_parent"
@@ -139,7 +137,8 @@
         android:layout_below="@+id/textView6"
         android:layout_toRightOf="@+id/textView8"
         android:layout_toEndOf="@+id/textView8"
-        android:numeric="decimal" />
+        android:numeric="decimal"
+        android:hint="> 0" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -208,6 +207,7 @@
         android:id="@+id/places"
         android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="All the places you will show to the tourist" />
 
 </RelativeLayout>

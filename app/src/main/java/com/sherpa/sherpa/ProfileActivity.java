@@ -103,6 +103,8 @@ public class ProfileActivity extends AppCompatActivity {
                         places.getText().toString().length() > 1 &&
                         !city.getText().toString().contains("-") &&
                         !city.getText().toString().contains(",") &&
+                        !city.getText().toString().contains(";") &&
+                        !city.getText().toString().contains("/") &&
                         Double.parseDouble(cost.getText().toString()) > 0) {
                     user.put("gcity", city.getText().toString());
                     user.put("cost", Double.parseDouble(cost.getText().toString()));
