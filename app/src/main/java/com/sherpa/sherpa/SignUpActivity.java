@@ -79,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.put("username", username);
                     user.put("gcity", "");
                     user.put("cost",0.0);
+                    user.put("costType", "H");
                     user.put("places", "");
                     user.put("available", false);
                     user.put("profile", false);

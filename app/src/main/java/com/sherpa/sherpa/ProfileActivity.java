@@ -23,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final boolean[] av = {false};
+        final boolean[] h = {true};
 
         Intent intent = getIntent();
         final ParseUser user = ParseUser.getCurrentUser();
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour.setChecked(true);
                 day.setChecked(false);
+                h[0] = true;
             }
         });
         day.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour.setChecked(false);
                 day.setChecked(true);
+                h[0] = false;
             }
         });
         Button save = (Button) findViewById(R.id.saveButton);
@@ -78,6 +81,16 @@ public class ProfileActivity extends AppCompatActivity {
         }
         city.setText(user.getString("gcity"));
         cost.setText(user.getDouble("cost") + "");
+        if(user.getString("costType").equals("H"))
+        {
+            hour.setChecked(true);
+            day.setChecked(false);
+        }
+        else
+        {
+            hour.setChecked(false);
+            hour.setChecked(true);
+        }
         places.setText(user.getString("places"));
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +103,14 @@ public class ProfileActivity extends AppCompatActivity {
                     user.put("places", places.getText().toString());
                     user.put("available", av[0]);
                     user.put("profile", true);
+                    if(h[0])
+                    {
+                        user.put("costType", "H");
+                    }
+                    else
+                    {
+                        user.put("costType", "D");
+                    }
                     user.saveInBackground();
                 }
                 else
