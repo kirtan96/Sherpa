@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,14 +16,19 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import java.io.ByteArrayOutputStream;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLERY = 2;
-
+    ParseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         final boolean[] h = {true};
 
         Intent intent = getIntent();
-        final ParseUser user = ParseUser.getCurrentUser();
+        user = ParseUser.getCurrentUser();
         TextView insImage =(TextView) findViewById(R.id.textView);
         profilePic = (ImageView) findViewById(R.id.profilePic);
         TextView name = (TextView) findViewById(R.id.name);
@@ -46,6 +52,17 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText cost = (EditText) findViewById(R.id.cost);
         final RadioButton hour = (RadioButton) findViewById(R.id.hourButton);
         final RadioButton day = (RadioButton) findViewById(R.id.dayButton);
+
+        if(user.containsKey("pp")) {
+            ParseFile file = user.getParseFile("pp");
+            file.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    profilePic.setImageBitmap(bmp);
+                }
+            });
+        }
         avyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +203,11 @@ public class ProfileActivity extends AppCompatActivity {
             if (extras2 != null) {
                 Bitmap photo = extras2.getParcelable("data");
                 profilePic.setImageBitmap(photo);
-
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                ParseFile pFile = new ParseFile( user.getUsername() + ".jpg", stream.toByteArray());
+                pFile.saveInBackground();
+                user.put("pp", pFile);
             }
         }
     }
