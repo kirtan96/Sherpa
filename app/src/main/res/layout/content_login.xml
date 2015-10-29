@@ -15,8 +15,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:src="@mipmap/sherpa_logo"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView2" />
 
     <EditText
         android:layout_width="match_parent"
