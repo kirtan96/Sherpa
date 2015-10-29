@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".SherpaApplication"
@@ -34,8 +34,8 @@
         </activity>
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="portrait"
             android:label="Sherpa"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,8 +45,17 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_profile"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sherpa.sherpa.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ViewProfile"
+            android:label="@string/title_activity_view_profile"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
