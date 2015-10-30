@@ -44,7 +44,7 @@ public class SearchSherpa extends AppCompatActivity {
                         public void done(List<ParseUser> list, ParseException e) {
                             for(ParseUser user: list)
                             {
-                                if(user.getString("gcity").contains(editText.getText()))
+                                if(user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()))
                                 {
                                     if(user.getBoolean("available"))
                                     {
