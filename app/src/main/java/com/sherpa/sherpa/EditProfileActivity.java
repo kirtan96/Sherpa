@@ -23,7 +23,7 @@ import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 
-public class ProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
     private static final int PICK_FROM_GALLERY = 2;
@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         //final boolean[] av = {false};
         //final boolean[] h = {true};
 
-        Intent intent = getIntent();
+        final Intent activityintent = getIntent();
         user = ParseUser.getCurrentUser();
         TextView insImage =(TextView) findViewById(R.id.textView);
         profilePic = (ImageView) findViewById(R.id.profilePic);
@@ -171,10 +171,10 @@ public class ProfileActivity extends AppCompatActivity {
                         user.put("costType", "D");
                     }
                     user.saveInBackground();
-                    Intent intent1 = new Intent(ProfileActivity.this, MainActivity.class);
+                    Intent intent1 = new Intent(EditProfileActivity.this, MainActivity.class);
                     startActivity(intent1);
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
                     builder.setMessage("Please fill everything in properly.")
                             .setTitle("Oops")
                             .setPositiveButton(R.string.ok, null);

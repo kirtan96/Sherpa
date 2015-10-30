@@ -21,7 +21,7 @@
     <string name="app_id">452763198263603</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_profile">Edit Profile</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

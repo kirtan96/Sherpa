@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateToEditProfile()
     {
-        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
         startActivity(intent);
     }
 
