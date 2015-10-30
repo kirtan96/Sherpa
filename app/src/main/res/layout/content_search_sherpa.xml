@@ -18,15 +18,27 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:imeOptions="actionSearch"
-        android:hint="Search for city"
-        android:singleLine="true" />
+        android:hint="Search for city or places"
+        android:singleLine="true"
+        android:layout_marginBottom="5dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/searchText"
+        android:layout_below="@+id/availableNumber"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/availableNumber"
+        android:layout_below="@+id/searchText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:textSize="18dp"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

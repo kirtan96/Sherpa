@@ -67,7 +67,8 @@
             android:name=".SearchSherpa"
             android:label="@string/title_activity_search_sherpa"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sherpa.sherpa.MainActivity" />
