@@ -53,6 +53,11 @@ public class EditProfileActivity extends AppCompatActivity {
         final EditText cost = (EditText) findViewById(R.id.cost);
         final RadioButton hour = (RadioButton) findViewById(R.id.hourButton);
         final RadioButton day = (RadioButton) findViewById(R.id.dayButton);
+        final EditText email = (EditText) findViewById(R.id.email);
+        final EditText phone = (EditText) findViewById(R.id.phone);
+
+        email.setText(user.getEmail());
+        phone.setText(user.getString("phone"));
 
         if(user.containsKey("pp")) {
             ParseFile file = user.getParseFile("pp");
@@ -165,6 +170,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     user.put("places", places.getText().toString());
                     user.put("available", av);
                     user.put("profile", true);
+                    user.put("phone", phone.getText().toString());
+                    user.setEmail(email.getText().toString());
                     if (h) {
                         user.put("costType", "H");
                     } else {

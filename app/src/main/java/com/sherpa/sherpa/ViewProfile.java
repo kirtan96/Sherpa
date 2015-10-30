@@ -32,6 +32,10 @@ public class ViewProfile extends AppCompatActivity {
         TextView placeCity = (TextView) findViewById(R.id.placeCity);
         TextView places = (TextView) findViewById(R.id.listOfPlaces);
         TextView cost = (TextView) findViewById(R.id.cost);
+        TextView email = (TextView) findViewById(R.id.email);
+        email.setText(user.getEmail());
+        TextView phone = (TextView) findViewById(R.id.phone);
+        phone.setText(user.getString("phone"));
 
         ParseFile file = user.getParseFile("pp");
         file.getDataInBackground(new GetDataCallback() {
