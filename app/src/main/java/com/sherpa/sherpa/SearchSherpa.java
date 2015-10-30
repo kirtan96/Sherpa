@@ -42,28 +42,16 @@ public class SearchSherpa extends AppCompatActivity {
                     query.findInBackground(new FindCallback<ParseUser>() {
                         @Override
                         public void done(List<ParseUser> list, ParseException e) {
-                            for(ParseUser user: list)
-                            {
-                                if(user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()))
-                                {
-                                    if(user.getBoolean("available"))
-                                    {
+                            for (ParseUser user : list) {
+                                if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase())) {
+                                    if (user.getBoolean("available")) {
                                         userlist.add(user);
                                         userListString.add(user.getString("firstname") + " " + user.getString("lastname"));
                                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
                                                 android.R.layout.simple_list_item_1, userListString);
                                         listView.setAdapter(arrayAdapter);
                                     }
-                                    else
-                                    {
-                                        userListString.add("The Sherpas in this city are not available at this moment. Please try again later!");
-                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
-                                                android.R.layout.simple_list_item_1, userListString);
-                                        listView.setAdapter(arrayAdapter);
-                                    }
-                                }
-                                else
-                                {
+                                } else {
                                     userListString.add("There are no Sherpas in this city");
                                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
                                             android.R.layout.simple_list_item_1, userListString);
