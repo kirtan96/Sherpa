@@ -54,10 +54,15 @@ public class MainActivity extends AppCompatActivity {
             t.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    navigateToSearch();
                 }
             });
         }
+    }
+
+    private void navigateToSearch() {
+        Intent intent = new Intent(MainActivity.this, SearchSherpa.class);
+        startActivity(intent);
     }
 
     private void navigateToViewProfile() {

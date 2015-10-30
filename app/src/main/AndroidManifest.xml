@@ -49,8 +49,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            >
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sherpa.sherpa.MainActivity" />
@@ -58,6 +57,15 @@
         <activity
             android:name=".ViewProfile"
             android:label="@string/title_activity_view_profile"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sherpa.sherpa.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SearchSherpa"
+            android:label="@string/title_activity_search_sherpa"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
