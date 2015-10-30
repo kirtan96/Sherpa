@@ -158,7 +158,8 @@ public class EditProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (city.getText().toString().length() > 1 &&
+                if (user.containsKey("pp") &&
+                        city.getText().toString().length() > 1 &&
                         places.getText().toString().length() > 1 &&
                         !city.getText().toString().contains("-") &&
                         !city.getText().toString().contains(",") &&
@@ -207,6 +208,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     ParseFile pFile = new ParseFile(user.getUsername() + ".jpg", stream.toByteArray());
                     pFile.saveInBackground();
                     user.put("pp", pFile);
+                    user.saveInBackground();
                 }
             }
         }
