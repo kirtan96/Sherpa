@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchSherpa extends AppCompatActivity {
-
+    ArrayList<String> userListString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +36,13 @@ public class SearchSherpa extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     handled = true;
                     final ArrayList<ParseUser> userlist = new ArrayList<>();
-                    final ArrayList<String> userListString = new ArrayList<>();
+
 
                     ParseQuery<ParseUser> query = ParseUser.getQuery();
                     query.findInBackground(new FindCallback<ParseUser>() {
                         @Override
                         public void done(List<ParseUser> list, ParseException e) {
+                            userListString = new ArrayList<>();
                             for (ParseUser user : list) {
                                 if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase())) {
                                     if (user.getBoolean("available")) {
@@ -51,15 +52,18 @@ public class SearchSherpa extends AppCompatActivity {
                                                 android.R.layout.simple_list_item_1, userListString);
                                         listView.setAdapter(arrayAdapter);
                                     }
-                                } else {
-                                    userListString.add("There are no Sherpas in this city");
-                                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
-                                            android.R.layout.simple_list_item_1, userListString);
-                                    listView.setAdapter(arrayAdapter);
                                 }
+                            }
+                            if(userListString.isEmpty())
+                            {
+                                userListString.add("There are no Sherpas available in this city!");
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
+                                        android.R.layout.simple_list_item_1, userListString);
+                                listView.setAdapter(arrayAdapter);
                             }
                         }
                     });
+
                 }
                 return handled;
             }
