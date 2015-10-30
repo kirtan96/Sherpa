@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        navigateToEditProfile(); //need to change this
+                        navigateToViewProfile(); //need to change this
                     }
                 }
             });
@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void navigateToViewProfile() {
+        Intent intent = new Intent(MainActivity.this, ViewProfile.class);
+        startActivity(intent);
     }
 
     @Override

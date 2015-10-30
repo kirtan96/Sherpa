@@ -29,7 +29,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textColor="@android:color/white"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:layout_marginBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,14 +46,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Places, I will tour in"
+        android:text="Places that I will show in "
         android:id="@+id/placeCity"
         android:layout_below="@+id/city"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
         android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,6 +64,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:textSize="20dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I will charge: "
+        android:id="@+id/cost"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/profilePicture"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:textSize="20dp"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="10dp" />
 
 </RelativeLayout>
