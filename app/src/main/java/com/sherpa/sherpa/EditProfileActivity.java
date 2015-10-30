@@ -189,17 +189,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == PICK_FROM_GALLERY) {
-            Bundle extras2 = data.getExtras();
-            if (extras2 != null) {
-                Bitmap photo = extras2.getParcelable("data");
-                profilePic.setImageBitmap(photo);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                ParseFile pFile = new ParseFile( user.getUsername() + ".jpg", stream.toByteArray());
-                pFile.saveInBackground();
-                user.put("pp", pFile);
+        if(resultCode==RESULT_OK) {
+            if (requestCode == PICK_FROM_GALLERY) {
+                Bundle extras2 = data.getExtras();
+                if (extras2 != null) {
+                    Bitmap photo = extras2.getParcelable("data");
+                    profilePic.setImageBitmap(photo);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    ParseFile pFile = new ParseFile(user.getUsername() + ".jpg", stream.toByteArray());
+                    pFile.saveInBackground();
+                    user.put("pp", pFile);
+                }
             }
         }
     }
