@@ -114,4 +114,7 @@
     <string name="title_activity_view_profile">Profile</string>
     <string name="title_activity_search_sherpa">Search for a Sherpa</string>
     <string name="title_activity_view_sherpa_profile">Sherpa\'s Profile</string>
+    <string name="title_activity_checkout">checkout</string>
+    <string name="title_activity_pay_pal_sdk">PayPal_sdk</string>
+    <string name="title_activity_pay_pal__selection">PayPal_Selection</string>
 </resources>
