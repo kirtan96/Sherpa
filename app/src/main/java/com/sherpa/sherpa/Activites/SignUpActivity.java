@@ -1,4 +1,4 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.sherpa.sherpa.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

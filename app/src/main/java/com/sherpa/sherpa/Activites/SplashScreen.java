@@ -1,9 +1,11 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+
+import com.sherpa.sherpa.R;
 
 public class SplashScreen extends AppCompatActivity {
 

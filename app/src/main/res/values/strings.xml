@@ -113,4 +113,5 @@
     </string>
     <string name="title_activity_view_profile">Profile</string>
     <string name="title_activity_search_sherpa">Search for a Sherpa</string>
+    <string name="title_activity_view_sherpa_profile">Sherpa\'s Profile</string>
 </resources>

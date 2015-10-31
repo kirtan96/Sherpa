@@ -1,4 +1,4 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 
 import android.app.AlertDialog;
@@ -20,6 +20,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.R;
 
 import java.io.ByteArrayOutputStream;
 

@@ -1,10 +1,13 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,12 +17,14 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
+    ArrayList<ParseUser> userlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +41,6 @@ public class SearchSherpa extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     handled = true;
-                    final ArrayList<ParseUser> userlist = new ArrayList<>();
 
 
                     ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -45,6 +49,7 @@ public class SearchSherpa extends AppCompatActivity {
                         public void done(List<ParseUser> list, ParseException e) {
                             int i = 0;
                             int total = 0;
+                            userlist = new ArrayList<>();
                             userListString = new ArrayList<>();
                             for (ParseUser user : list) {
                                 if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()) ||
@@ -54,7 +59,7 @@ public class SearchSherpa extends AppCompatActivity {
                                         userlist.add(user);
                                         i++;
                                         userListString.add(user.getString("firstname") + " " + user.getString("lastname"));
-                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
+                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
                                                 android.R.layout.simple_list_item_1, userListString);
                                         listView.setAdapter(arrayAdapter);
                                     }
@@ -63,7 +68,7 @@ public class SearchSherpa extends AppCompatActivity {
                             if(userListString.isEmpty())
                             {
                                 userListString.add("There are no Sherpas available in this city!");
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchSherpa.this,
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
                                         android.R.layout.simple_list_item_1, userListString);
                                 listView.setAdapter(arrayAdapter);
                             }
@@ -73,6 +78,19 @@ public class SearchSherpa extends AppCompatActivity {
 
                 }
                 return handled;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = listView.getItemAtPosition(position).toString();
+                if(!name.equals("There are no Sherpas available in this city!") && !name.isEmpty())
+                {
+                    Intent intent = new Intent(SearchSherpa.this, ViewSherpaProfile.class);
+                    intent.putExtra("username", userlist.get(position).getUsername());
+                    startActivity(intent);
+                }
             }
         });
     }

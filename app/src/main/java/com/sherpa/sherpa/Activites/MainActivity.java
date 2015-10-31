@@ -1,4 +1,4 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.sherpa.sherpa.R;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();

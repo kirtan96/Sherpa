@@ -1,4 +1,4 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 import android.app.Application;
 

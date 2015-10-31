@@ -1,4 +1,4 @@
-package com.sherpa.sherpa;
+package com.sherpa.sherpa.Activites;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +15,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.R;
 
 public class ViewProfile extends AppCompatActivity {
 
@@ -49,7 +50,7 @@ public class ViewProfile extends AppCompatActivity {
         city.setText(city.getText() + user.getString("gcity"));
         placeCity.setText(placeCity.getText() + user.getString("gcity") + ":");
         places.setText(user.getString("places"));
-        String hour = "";
+        String hour;
         if(user.getString("costType").equals("H"))
         {
             hour = "hour";

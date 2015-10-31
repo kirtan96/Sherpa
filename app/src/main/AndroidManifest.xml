@@ -8,32 +8,32 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".SherpaApplication"
+        android:name=".Activites.SherpaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/sherpa_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Activites.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activites.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Activites.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".SplashScreen"
+            android:name=".Activites.SplashScreen"
             android:label="Sherpa"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -44,34 +44,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".Activites.EditProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activites.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sherpa.sherpa.MainActivity" />
+                android:value=".Activites.MainActivity" />
         </activity>
         <activity
-            android:name=".ViewProfile"
+            android:name=".Activites.ViewProfile"
             android:label="@string/title_activity_view_profile"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sherpa.sherpa.MainActivity" />
+                android:value=".Activites.MainActivity" />
         </activity>
         <activity
-            android:name=".SearchSherpa"
+            android:name=".Activites.SearchSherpa"
             android:label="@string/title_activity_search_sherpa"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sherpa.sherpa.MainActivity" />
+                android:value=".Activites.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activites.ViewSherpaProfile"
+            android:label="@string/title_activity_view_sherpa_profile"
+            android:parentActivityName=".Activites.SearchSherpa"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.SearchSherpa" />
         </activity>
     </application>
 
