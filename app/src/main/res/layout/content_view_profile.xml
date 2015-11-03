@@ -98,4 +98,13 @@
         android:textSize="20dp"
         android:autoLink="phone" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current Chats"
+        android:id="@+id/current_chats"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp" />
+
 </RelativeLayout>

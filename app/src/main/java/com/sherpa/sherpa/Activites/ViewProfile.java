@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.R;
+import com.sherpa.sherpa.UserList;
 
 public class ViewProfile extends AppCompatActivity {
 
@@ -25,6 +28,8 @@ public class ViewProfile extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button chatButton = (Button) findViewById(R.id.current_chats);
 
         ParseUser user = ParseUser.getCurrentUser();
         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
@@ -60,6 +65,18 @@ public class ViewProfile extends AppCompatActivity {
             hour = "day";
         }
         cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToChatList();
+            }
+        });
+    }
+
+    private void navigateToChatList() {
+        Intent intent = new Intent(ViewProfile.this, UserList.class);
+        startActivity(intent);
     }
 
     @Override

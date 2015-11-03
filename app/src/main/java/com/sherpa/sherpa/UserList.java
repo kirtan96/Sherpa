@@ -94,7 +94,7 @@ public class UserList extends CustomActivity
     {
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
-        ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
+        ParseUser.getQuery().whereEqualTo("receiver", ParseUser.getCurrentUser().getUsername())
                 .findInBackground(new FindCallback<ParseUser>() {
 
                     @Override
