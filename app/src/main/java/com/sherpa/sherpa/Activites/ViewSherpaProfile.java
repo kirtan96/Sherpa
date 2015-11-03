@@ -108,8 +108,6 @@ public class ViewSherpaProfile extends AppCompatActivity {
     {
         Intent intent = new Intent(this, Chat.class);
         intent.putExtra("username", sherpaName);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

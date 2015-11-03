@@ -5,9 +5,11 @@ package com.sherpa.sherpa;
  */
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,7 +49,7 @@ public class UserList extends CustomActivity
 
         //getActionBar().setDisplayHomeAsUpEnabled(false);
         user = ParseUser.getCurrentUser();
-        uList = new ArrayList<ParseUser>();
+        //uList = new ArrayList<ParseUser>();
         updateUserStatus(true);
     }
 
@@ -91,7 +93,7 @@ public class UserList extends CustomActivity
     {
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
-        ListView list = (ListView) findViewById(R.id.list);
+        //ListView list = (ListView) findViewById(R.id.list);
         /*ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
                 .findInBackground(new FindCallback<ParseUser>() {
 
@@ -132,43 +134,57 @@ public class UserList extends CustomActivity
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Chat");   //gets the chat object
         query.whereEqualTo("receiver", ParseUser.getCurrentUser().getUsername())
                 .findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (list != null) {
-                    if (list.size() == 0) {
-                        Toast.makeText(UserList.this,
-                                R.string.msg_no_user_found,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    dia.dismiss();
-                    final ArrayList<String> senders = new ArrayList<String>();
-                    for (ParseObject chat : list) {
-                        if (!senders.contains(chat.getString("sender"))) {
-                            senders.add(chat.getString("sender"));
-                        }
-                    }
-                    ParseQuery<ParseUser> query1 = ParseUser.getQuery();
-                    query1.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername())
-                            .findInBackground(new FindCallback<ParseUser>() {
-                        @Override
-                        public void done(List<ParseUser> list, ParseException e) {
-
-                            for (ParseUser u : list) {
-                                if (senders.contains(u.getUsername())) {
-                                    uList.add(u);
+                    @Override
+                    public void done(List<ParseObject> list1, ParseException e) {
+                        if (list1 != null) {
+                            if (list1.size() == 0) {
+                                Toast.makeText(UserList.this,
+                                        R.string.msg_no_user_found,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            final ListView list = (ListView) findViewById(R.id.list);
+                            dia.dismiss();
+                            final ArrayList<String> senders = new ArrayList<String>();
+                            for (ParseObject chat : list1) {
+                                if (!senders.contains(chat.getString("sender"))) {
+                                    senders.add(chat.getString("sender"));
                                 }
                             }
+                            ParseQuery<ParseUser> query1 = ParseUser.getQuery();
+                            query1.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername())
+                                    .findInBackground(new FindCallback<ParseUser>() {
+                                        @Override
+                                        public void done(List<ParseUser> list2, ParseException e) {
+                                            uList = new ArrayList<ParseUser>();
+                                            for (ParseUser u : list2) {
+                                                if (senders.contains(u.getUsername())) {
+                                                    uList.add(u);
+                                                }
+                                            }
+                                            list.setAdapter(new UserAdapter());
+                                            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    navigateToChat(position, list);
+                                                }
+                                            });
+                                        }
+                                    });
                         }
-                    });
-                }
             }
 
         });
-            list.setAdapter(new UserAdapter());
+            //list.setAdapter(new UserAdapter());
 
         }
 
-                /**
+    private void navigateToChat(int position, ListView list) {
+        Intent intent = new Intent(this, Chat.class);
+        intent.putExtra("username", uList.get(position).getUsername());
+        startActivity(intent);
+    }
+
+    /**
                  * The Class UserAdapter is the adapter class for User ListView. This
                  * adapter shows the user name and it's only online status for each item.
                  */
