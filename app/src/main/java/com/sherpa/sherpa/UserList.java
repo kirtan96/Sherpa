@@ -5,24 +5,20 @@ package com.sherpa.sherpa;
  */
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.sherpa.sherpa.utils.Utils;
-import com.sherpa.sherpa.utils.Const;
-import com.sherpa.sherpa.custom.CustomActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.custom.CustomActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +45,9 @@ public class UserList extends CustomActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_list);
 
-        getActionBar().setDisplayHomeAsUpEnabled(false);
-
+        //getActionBar().setDisplayHomeAsUpEnabled(false);
+        user = ParseUser.getCurrentUser();
+        uList = new ArrayList<ParseUser>();
         updateUserStatus(true);
     }
 
@@ -94,7 +91,8 @@ public class UserList extends CustomActivity
     {
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
-        ParseUser.getQuery().whereEqualTo("receiver", ParseUser.getCurrentUser().getUsername())
+        ListView list = (ListView) findViewById(R.id.list);
+        /*ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
                 .findInBackground(new FindCallback<ParseUser>() {
 
                     @Override
@@ -111,7 +109,7 @@ public class UserList extends CustomActivity
                             uList = new ArrayList<ParseUser>(li);
                             ListView list = (ListView) findViewById(R.id.list);
                             list.setAdapter(new UserAdapter());
-                            list.setOnItemClickListener(new OnItemClickListener() {
+                            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                                 @Override
                                 public void onItemClick(AdapterView<?> arg0,
@@ -130,14 +128,51 @@ public class UserList extends CustomActivity
                             e.printStackTrace();
                         }
                     }
-                });
-    }
+                });*/
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Chat");   //gets the chat object
+        query.whereEqualTo("receiver", ParseUser.getCurrentUser().getUsername())
+                .findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (list != null) {
+                    if (list.size() == 0) {
+                        Toast.makeText(UserList.this,
+                                R.string.msg_no_user_found,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    dia.dismiss();
+                    final ArrayList<String> senders = new ArrayList<String>();
+                    for (ParseObject chat : list) {
+                        if (!senders.contains(chat.getString("sender"))) {
+                            senders.add(chat.getString("sender"));
+                        }
+                    }
+                    ParseQuery<ParseUser> query1 = ParseUser.getQuery();
+                    query1.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername())
+                            .findInBackground(new FindCallback<ParseUser>() {
+                        @Override
+                        public void done(List<ParseUser> list, ParseException e) {
 
-    /**
-     * The Class UserAdapter is the adapter class for User ListView. This
-     * adapter shows the user name and it's only online status for each item.
-     */
-    private class UserAdapter extends BaseAdapter {
+                            for (ParseUser u : list) {
+                                if (senders.contains(u.getUsername())) {
+                                    uList.add(u);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+            list.setAdapter(new UserAdapter());
+
+        }
+
+                /**
+                 * The Class UserAdapter is the adapter class for User ListView. This
+                 * adapter shows the user name and it's only online status for each item.
+                 */
+        private class UserAdapter extends BaseAdapter {
 
         /* (non-Javadoc)
          * @see android.widget.Adapter#getCount()

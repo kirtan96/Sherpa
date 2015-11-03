@@ -44,6 +44,7 @@ public class SearchSherpa extends AppCompatActivity {
 
 
                     ParseQuery<ParseUser> query = ParseUser.getQuery();
+                    query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
                     query.findInBackground(new FindCallback<ParseUser>() {
                         @Override
                         public void done(List<ParseUser> list, ParseException e) {
