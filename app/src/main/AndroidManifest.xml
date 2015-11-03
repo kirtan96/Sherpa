@@ -85,7 +85,11 @@
         <activity
             android:name="com.paypal.android.MEP.PayPalActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.ViewSherpaProfile" />
+        </activity>
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -109,16 +113,25 @@
             android:name=".Activites.checkout"
             android:label="@string/title_activity_checkout"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.ViewSherpaProfile" />
         </activity>
         <activity
             android:name=".Activites.PayPal_sdk"
             android:label="@string/title_activity_pay_pal_sdk"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.ViewSherpaProfile" />
         </activity>
         <activity
             android:name=".Activites.PayPal_Selection"
             android:label="@string/title_activity_pay_pal__selection"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.ViewSherpaProfile" />
         </activity>
         <activity
             android:name=".Chat"
