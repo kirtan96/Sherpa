@@ -120,6 +120,15 @@
             android:label="@string/title_activity_pay_pal__selection"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Chat"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activites.ViewSherpaProfile" />
+        </activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.Chat;
 import com.sherpa.sherpa.R;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ViewSherpaProfile extends AppCompatActivity {
 
     ParseUser user;
+    String sherpaName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
+        sherpaName = username;
 
         user = ParseUser.getCurrentUser();
         ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -103,7 +106,8 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
     private void navigateToCheckout()
     {
-        Intent intent = new Intent(this, PayPal_Selection.class);
+        Intent intent = new Intent(this, Chat.class);
+        intent.putExtra("username", sherpaName);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

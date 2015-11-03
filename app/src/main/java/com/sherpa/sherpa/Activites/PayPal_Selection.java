@@ -22,8 +22,8 @@ public class PayPal_Selection extends ActionBarActivity implements View.OnClickL
         Button button_paypal_sdk= (Button) findViewById(R.id.button_paypal_sdk);
         button_paypal_sdk.setOnClickListener(this);
 
-       // Button button_paypal_mpl= (Button) findViewById(R.id.button_paypal_mpl);
-        //button_paypal_mpl.setOnClickListener(this);
+       Button button_paypal_mpl= (Button) findViewById(R.id.button_paypal_mpl);
+        button_paypal_mpl.setOnClickListener(this);
 
     }
 
@@ -39,12 +39,12 @@ public class PayPal_Selection extends ActionBarActivity implements View.OnClickL
 
                 break;
 
-          /*  case R.id.button_paypal_mpl:
+           case R.id.button_paypal_mpl:
                 //call mpl activity
 
                 startActivity(new Intent(PayPal_Selection.this,checkout.class));
 
-                break;*/
+                break;
 
             default:
 
