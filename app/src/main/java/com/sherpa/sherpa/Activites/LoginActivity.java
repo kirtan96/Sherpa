@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void done(ParseUser user, ParseException e) {
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
+                                SherpaApplication.updateParseInstallation(user);
                                 login();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);

@@ -91,6 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void done(ParseException e) {
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
+                                SherpaApplication.updateParseInstallation(user);
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.model.Conversation;
 import com.sherpa.sherpa.utils.Const;
@@ -157,13 +160,35 @@ public class Chat extends CustomActivity
             @Override
             public void done(ParseException e)
             {
-                if (e == null)
+                if (e == null) {
                     c.setStatus(Conversation.STATUS_SENT);
+                    sendPushNotification();
+                }
                 else
                     c.setStatus(Conversation.STATUS_FAILED);
                 adp.notifyDataSetChanged();
             }
         });
+    }
+
+    private void sendPushNotification() {
+
+        final ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
+        ParseQuery<ParseUser> query1 = ParseUser.getQuery();
+        query1.whereEqualTo("username", buddy).findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> list, ParseException e) {
+                query.whereEqualTo("userId", list.get(0).getObjectId());
+
+                //send notification
+                ParsePush push = new ParsePush();
+                push.setQuery(query);
+                push.setMessage("You have a new message from " + ParseUser.getCurrentUser().getUsername());
+                push.sendInBackground();
+            }
+        });
+
+
     }
 
     /**
