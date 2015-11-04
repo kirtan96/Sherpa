@@ -56,6 +56,7 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
         actionBar.setHomeButtonEnabled(true);
     }
 
+
     /**
      * Sets the touch and click listener for a view with given id.
      *

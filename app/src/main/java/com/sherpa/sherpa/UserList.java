@@ -224,7 +224,7 @@ public class UserList extends CustomActivity
 
             ParseUser c = getItem(pos);
             TextView lbl = (TextView) v;
-            lbl.setText(c.getUsername());
+            lbl.setText(c.getString("firstname") + " " + c.getString("lastname"));
             lbl.setCompoundDrawablesWithIntrinsicBounds(
                     c.getBoolean("online") ? R.drawable.ic_online
                             : R.drawable.ic_offline, 0, R.drawable.arrow, 0);

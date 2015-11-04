@@ -103,8 +103,9 @@
         android:layout_height="wrap_content"
         android:text="Current Chats"
         android:id="@+id/current_chats"
+        android:background="@drawable/bg_gradient2"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

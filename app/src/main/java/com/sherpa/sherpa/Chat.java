@@ -20,18 +20,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.parse.Parse;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseUser;
-import com.sherpa.sherpa.model.Conversation;
-import com.sherpa.sherpa.utils.Const;
-import com.sherpa.sherpa.custom.CustomActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.sherpa.sherpa.custom.CustomActivity;
+import com.sherpa.sherpa.model.Conversation;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,8 +87,6 @@ public class Chat extends CustomActivity
         setTouchNClick(R.id.btnSend);
         Intent intent = getIntent();
         buddy = intent.getStringExtra("username");
-        //getActionBar().setTitle();
-
         handler = new Handler();
     }
 
