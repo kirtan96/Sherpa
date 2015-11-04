@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
+
+            currentUser.put("chattingWith", "");
             currentUser.put("online", true);
             currentUser.saveInBackground();
             welcome = (TextView) findViewById(R.id.welcome);
@@ -44,12 +46,9 @@ public class MainActivity extends AppCompatActivity {
             tg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!currentUser.getBoolean("profile"))
-                    {
+                    if (!currentUser.getBoolean("profile")) {
                         navigateToEditProfile();
-                    }
-                    else
-                    {
+                    } else {
                         navigateToViewProfile(); //need to change this
                     }
                 }
@@ -83,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        currentUser.put("online", false);
-        currentUser.saveEventually();
+        if(currentUser != null) {
+            currentUser.put("online", false);
+            currentUser.saveInBackground();
+        }
     }
 
     @Override

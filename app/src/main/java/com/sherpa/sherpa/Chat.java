@@ -46,6 +46,7 @@ public class Chat extends CustomActivity
     /** The Conversation list. */
     private ArrayList<Conversation> convList;
 
+
     /** The chat adapter. */
     private ChatAdapter adp;
 
@@ -73,6 +74,9 @@ public class Chat extends CustomActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+        ParseUser.getCurrentUser().put("online", true);
+        ParseUser.getCurrentUser().saveInBackground();
+
         convList = new ArrayList<Conversation>();
         ListView list = (ListView) findViewById(R.id.list);
         adp = new ChatAdapter();
@@ -87,6 +91,8 @@ public class Chat extends CustomActivity
         setTouchNClick(R.id.btnSend);
         Intent intent = getIntent();
         buddy = intent.getStringExtra("username");
+        ParseUser.getCurrentUser().put("chattingWith", buddy);
+        ParseUser.getCurrentUser().saveInBackground();
         handler = new Handler();
     }
 
@@ -98,12 +104,20 @@ public class Chat extends CustomActivity
     {
         super.onResume();
         isRunning = true;
+
         loadConversationList();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ParseUser.getCurrentUser().put("chattingWith", "");
+        ParseUser.getCurrentUser().saveInBackground();
+    }
+
     /* (non-Javadoc)
-     * @see android.support.v4.app.FragmentActivity#onPause()
-     */
+         * @see android.support.v4.app.FragmentActivity#onPause()
+         */
     @Override
     protected void onPause()
     {
@@ -158,7 +172,7 @@ public class Chat extends CustomActivity
             {
                 if (e == null) {
                     c.setStatus(Conversation.STATUS_SENT);
-                    sendPushNotification();
+                    getBuddy();
                 }
                 else
                     c.setStatus(Conversation.STATUS_FAILED);
@@ -179,12 +193,33 @@ public class Chat extends CustomActivity
                 //send notification
                 ParsePush push = new ParsePush();
                 push.setQuery(query);
-                push.setMessage("You have a new message from " + ParseUser.getCurrentUser().getUsername());
+                push.setMessage("You have a new message from " + ParseUser.getCurrentUser().getString("firstname") + " " +
+                        ParseUser.getCurrentUser().getString("lastname"));
                 push.sendInBackground();
             }
         });
 
 
+    }
+
+    private void getBuddy()
+    {
+        final ParseUser[] p = new ParseUser[1];
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> list, ParseException e) {
+                for (ParseUser u: list)
+                {
+                    if(u.getUsername().equals(buddy))
+                    {
+                        if(!u.getString("chattingWith").equals(ParseUser.getCurrentUser().getUsername()))
+                        sendPushNotification();
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -216,12 +251,9 @@ public class Chat extends CustomActivity
         q.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
-            public void done(List<ParseObject> li, ParseException e)
-            {
-                if (li != null && li.size() > 0)
-                {
-                    for (int i = li.size() - 1; i >= 0; i--)
-                    {
+            public void done(List<ParseObject> li, ParseException e) {
+                if (li != null && li.size() > 0) {
+                    for (int i = li.size() - 1; i >= 0; i--) {
                         ParseObject po = li.get(i);
                         Conversation c = new Conversation(po
                                 .getString("message"), po.getCreatedAt(), po
@@ -236,8 +268,7 @@ public class Chat extends CustomActivity
                 handler.postDelayed(new Runnable() {
 
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         if (isRunning)
                             loadConversationList();
                     }
@@ -246,6 +277,7 @@ public class Chat extends CustomActivity
         });
 
     }
+
 
     /**
      * The Class ChatAdapter is the adapter class for Chat ListView. This

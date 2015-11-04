@@ -32,6 +32,8 @@ public class ViewProfile extends AppCompatActivity {
         Button chatButton = (Button) findViewById(R.id.current_chats);
 
         ParseUser user = ParseUser.getCurrentUser();
+        user.put("online", true);
+        user.saveInBackground();
         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
         TextView name = (TextView) findViewById(R.id.name);
         TextView city = (TextView) findViewById(R.id.city);
@@ -106,4 +108,12 @@ public class ViewProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveEventually();
+        }
+    }
 }

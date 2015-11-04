@@ -83,7 +83,7 @@ public class UserList extends CustomActivity
     private void updateUserStatus(boolean online)
     {
         user.put("online", online);
-        user.saveEventually();
+        user.saveInBackground();
     }
 
     /**

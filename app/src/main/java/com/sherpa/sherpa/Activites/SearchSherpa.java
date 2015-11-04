@@ -34,6 +34,9 @@ public class SearchSherpa extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView availableNumber = (TextView) findViewById(R.id.availableNumber);
 
+        ParseUser.getCurrentUser().put("online", true);
+        ParseUser.getCurrentUser().saveInBackground();
+
         final EditText editText = (EditText) findViewById(R.id.searchText);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -94,6 +97,15 @@ public class SearchSherpa extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
     }
 
 }

@@ -37,6 +37,9 @@ public class ViewSherpaProfile extends AppCompatActivity {
         final String username = intent.getStringExtra("username");
         sherpaName = username;
 
+        ParseUser.getCurrentUser().put("online", true);
+        ParseUser.getCurrentUser().saveInBackground();
+
         user = ParseUser.getCurrentUser();
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -111,4 +114,12 @@ public class ViewSherpaProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
+    }
 }

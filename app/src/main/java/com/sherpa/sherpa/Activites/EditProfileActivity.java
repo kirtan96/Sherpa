@@ -42,8 +42,11 @@ public class EditProfileActivity extends AppCompatActivity {
         //final boolean[] av = {false};
         //final boolean[] h = {true};
 
+
         final Intent activityintent = getIntent();
         user = ParseUser.getCurrentUser();
+        user.put("online", true);
+        user.saveInBackground();
         TextView insImage =(TextView) findViewById(R.id.textView);
         profilePic = (ImageView) findViewById(R.id.profilePic);
         TextView name = (TextView) findViewById(R.id.name);
@@ -212,6 +215,15 @@ public class EditProfileActivity extends AppCompatActivity {
                     user.saveInBackground();
                 }
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(user != null) {
+            user.put("online", false);
+            user.saveEventually();
         }
     }
 }
