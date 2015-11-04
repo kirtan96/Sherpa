@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView welcome;
     protected Button tg;
     protected Button t;
-
+    ParseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        final ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser = ParseUser.getCurrentUser();
         if(currentUser == null)
         {
             navigateToLogin();
         }
         else
         {
+            currentUser.put("online", true);
+            currentUser.saveInBackground();
             welcome = (TextView) findViewById(R.id.welcome);
             tg = (Button) findViewById(R.id.tgButton);
             t = (Button) findViewById(R.id.touristButton);
@@ -76,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        currentUser.put("online", false);
+        currentUser.saveEventually();
     }
 
     @Override

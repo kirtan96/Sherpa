@@ -60,7 +60,7 @@ public class UserList extends CustomActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        updateUserStatus(false);
+        updateUserStatus(true);
     }
 
     /* (non-Javadoc)
