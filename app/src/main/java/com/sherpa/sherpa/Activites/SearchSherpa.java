@@ -105,8 +105,8 @@ public class SearchSherpa extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
             ParseUser.getCurrentUser().saveInBackground();
@@ -117,7 +117,7 @@ public class SearchSherpa extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
         }
     }

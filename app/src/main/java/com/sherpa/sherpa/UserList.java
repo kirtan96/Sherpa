@@ -50,6 +50,8 @@ public class UserList extends CustomActivity
 
         //getActionBar().setDisplayHomeAsUpEnabled(false);
         user = ParseUser.getCurrentUser();
+        user.put("online", true);
+        user.saveEventually();
         //uList = new ArrayList<ParseUser>();
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
         swipeRefreshLayout.setColorSchemeColors(android.R.color.holo_blue_bright,
@@ -68,9 +70,9 @@ public class UserList extends CustomActivity
      * @see android.support.v4.app.FragmentActivity#onDestroy()
      */
     @Override
-    protected void onStop()
+    protected void onPause()
     {
-        super.onStop();
+        super.onPause();
         updateUserStatus(false);
     }
 
@@ -83,7 +85,6 @@ public class UserList extends CustomActivity
         super.onResume();
         updateUserStatus(true);
         loadUserList();
-
     }
 
     /**

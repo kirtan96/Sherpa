@@ -37,7 +37,7 @@ public class ViewProfile extends AppCompatActivity {
 
         ParseUser user = ParseUser.getCurrentUser();
         user.put("online", true);
-        user.saveEventually();
+        user.saveInBackground();
         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
         TextView name = (TextView) findViewById(R.id.name);
         TextView city = (TextView) findViewById(R.id.city);
@@ -113,8 +113,8 @@ public class ViewProfile extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
             ParseUser.getCurrentUser().saveInBackground();
@@ -124,15 +124,6 @@ public class ViewProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", true);
-            ParseUser.getCurrentUser().saveInBackground();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
