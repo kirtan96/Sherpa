@@ -7,6 +7,7 @@ package com.sherpa.sherpa;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -50,7 +51,17 @@ public class UserList extends CustomActivity
         //getActionBar().setDisplayHomeAsUpEnabled(false);
         user = ParseUser.getCurrentUser();
         //uList = new ArrayList<ParseUser>();
-
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        swipeRefreshLayout.setColorSchemeColors(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadUserList();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     /* (non-Javadoc)

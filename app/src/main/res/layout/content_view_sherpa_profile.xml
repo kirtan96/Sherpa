@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/chatButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_gradient2" />
 
 </RelativeLayout>
