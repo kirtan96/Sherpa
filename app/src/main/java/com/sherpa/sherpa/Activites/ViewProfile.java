@@ -20,6 +20,10 @@ import com.parse.ParseUser;
 import com.sherpa.sherpa.R;
 import com.sherpa.sherpa.UserList;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 public class ViewProfile extends AppCompatActivity {
 
     @Override
@@ -33,7 +37,7 @@ public class ViewProfile extends AppCompatActivity {
 
         ParseUser user = ParseUser.getCurrentUser();
         user.put("online", true);
-        user.saveInBackground();
+        user.saveEventually();
         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
         TextView name = (TextView) findViewById(R.id.name);
         TextView city = (TextView) findViewById(R.id.city);
@@ -109,11 +113,29 @@ public class ViewProfile extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", true);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", false);
-            ParseUser.getCurrentUser().saveEventually();
+            ParseUser.getCurrentUser().put("online", true);
+            ParseUser.getCurrentUser().saveInBackground();
         }
     }
 }

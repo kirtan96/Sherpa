@@ -79,9 +79,36 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
+        if(currentUser != null) {
+            currentUser.put("online", false);
+            currentUser.saveInBackground();
+        }
+    }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(currentUser != null) {
+            currentUser.put("online", true);
+            currentUser.saveInBackground();
+        }
+    }
+
+    /*@Override
+    protected void onStop() {
+        super.onStop();
+        if(currentUser != null) {
+            currentUser.put("online", false);
+            currentUser.saveInBackground();
+        }
+    }*/
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         if(currentUser != null) {
             currentUser.put("online", false);
             currentUser.saveInBackground();

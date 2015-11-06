@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sherpa.sherpa.R;
 
+
+/**
+ * Created by Kirtan on 10/21/15.
+ */
 public class SplashScreen extends AppCompatActivity {
 
     @Override

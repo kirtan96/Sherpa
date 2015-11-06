@@ -50,17 +50,17 @@ public class UserList extends CustomActivity
         //getActionBar().setDisplayHomeAsUpEnabled(false);
         user = ParseUser.getCurrentUser();
         //uList = new ArrayList<ParseUser>();
-        updateUserStatus(true);
+
     }
 
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onDestroy()
      */
     @Override
-    protected void onDestroy()
+    protected void onStop()
     {
-        super.onDestroy();
-        updateUserStatus(true);
+        super.onStop();
+        updateUserStatus(false);
     }
 
     /* (non-Javadoc)
@@ -70,6 +70,7 @@ public class UserList extends CustomActivity
     protected void onResume()
     {
         super.onResume();
+        updateUserStatus(true);
         loadUserList();
 
     }
@@ -144,7 +145,7 @@ public class UserList extends CustomActivity
                             }
                             final ListView list = (ListView) findViewById(R.id.list);
                             dia.dismiss();
-                            final ArrayList<String> senders = new ArrayList<String>();
+                            final ArrayList<String> senders = new ArrayList<>();
                             for (ParseObject chat : list1) {
                                 if (!senders.contains(chat.getString("sender"))) {
                                     senders.add(chat.getString("sender"));
@@ -155,7 +156,7 @@ public class UserList extends CustomActivity
                                     .findInBackground(new FindCallback<ParseUser>() {
                                         @Override
                                         public void done(List<ParseUser> list2, ParseException e) {
-                                            uList = new ArrayList<ParseUser>();
+                                            uList = new ArrayList<>();
                                             for (ParseUser u : list2) {
                                                 if (senders.contains(u.getUsername())) {
                                                     uList.add(u);

@@ -14,6 +14,10 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.R;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     protected TextView mSignUpTextView;

@@ -24,6 +24,10 @@ import com.sherpa.sherpa.R;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
@@ -38,10 +42,6 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //final boolean[] av = {false};
-        //final boolean[] h = {true};
-
 
         final Intent activityintent = getIntent();
         user = ParseUser.getCurrentUser();
@@ -219,11 +219,20 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if(user != null) {
             user.put("online", false);
-            user.saveEventually();
+            user.saveInBackground();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(user != null) {
+            user.put("online", false);
+            user.saveInBackground();
         }
     }
 }

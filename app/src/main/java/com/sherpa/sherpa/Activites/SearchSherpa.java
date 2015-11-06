@@ -22,6 +22,11 @@ import com.sherpa.sherpa.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
     ArrayList<ParseUser> userlist;
@@ -100,12 +105,20 @@ public class SearchSherpa extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
             ParseUser.getCurrentUser().saveInBackground();
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
+    }
 }

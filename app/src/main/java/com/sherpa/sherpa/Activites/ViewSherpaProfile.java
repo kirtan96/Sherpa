@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,10 @@ import com.sherpa.sherpa.Chat;
 import com.sherpa.sherpa.R;
 
 import java.util.List;
+
+/**
+ * Created by Kirtan on 10/21/15.
+ */
 
 public class ViewSherpaProfile extends AppCompatActivity {
 
@@ -83,6 +89,14 @@ public class ViewSherpaProfile extends AppCompatActivity {
                 }
             }
         });
+
+        Button chatButton = (Button) findViewById(R.id.chatButton);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToChat();
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,16 +112,16 @@ public class ViewSherpaProfile extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_checkout) {
+        //if (id == R.id.action_checkout) {
 
-            navigateToCheckout();
-        }
+            //navigateToCheckout();
+        //}
 
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void navigateToCheckout()
+    private void navigateToChat()
     {
         Intent intent = new Intent(this, Chat.class);
         intent.putExtra("username", sherpaName);
@@ -115,10 +129,19 @@ public class ViewSherpaProfile extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
         }
     }

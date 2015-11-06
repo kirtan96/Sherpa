@@ -77,7 +77,7 @@ public class Chat extends CustomActivity
         ParseUser.getCurrentUser().put("online", true);
         ParseUser.getCurrentUser().saveInBackground();
 
-        convList = new ArrayList<Conversation>();
+        convList = new ArrayList<>();
         ListView list = (ListView) findViewById(R.id.list);
         adp = new ChatAdapter();
         list.setAdapter(adp);
@@ -104,13 +104,23 @@ public class Chat extends CustomActivity
     {
         super.onResume();
         isRunning = true;
-
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
         loadConversationList();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ParseUser.getCurrentUser().put("chattingWith", "");
+        ParseUser.getCurrentUser().saveInBackground();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         ParseUser.getCurrentUser().put("chattingWith", "");
         ParseUser.getCurrentUser().saveInBackground();
     }
@@ -232,7 +242,7 @@ public class Chat extends CustomActivity
         if (convList.size() == 0)
         {
             // load all messages...
-            ArrayList<String> al = new ArrayList<String>();
+            ArrayList<String> al = new ArrayList<>();
             al.add(buddy);
             al.add(ParseUser.getCurrentUser().getUsername());
             q.whereContainedIn("sender", al);
