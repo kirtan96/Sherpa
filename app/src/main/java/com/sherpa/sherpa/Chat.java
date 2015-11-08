@@ -105,24 +105,10 @@ public class Chat extends CustomActivity
         super.onResume();
         isRunning = true;
         if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
         }
         loadConversationList();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ParseUser.getCurrentUser().put("chattingWith", "");
-        ParseUser.getCurrentUser().saveInBackground();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        ParseUser.getCurrentUser().put("chattingWith", "");
-        ParseUser.getCurrentUser().saveInBackground();
     }
 
     /* (non-Javadoc)
@@ -132,6 +118,10 @@ public class Chat extends CustomActivity
     protected void onPause()
     {
         super.onPause();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
+        }
         isRunning = false;
     }
 

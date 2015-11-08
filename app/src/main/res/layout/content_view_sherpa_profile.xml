@@ -104,26 +104,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/chatButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Chat With Your Sherpa" />
-
-    <RatingBar
-        style = "?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_alignLeft="@+id/phone"
-        android:layout_alignStart="@+id/phone"
-        android:numStars="5"
-        android:rating="0"
-        android:layout_below="@+id/phone" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rate Your Sherpa"
-        android:id="@+id/rateButton"
-        android:layout_above="@+id/chatButton"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

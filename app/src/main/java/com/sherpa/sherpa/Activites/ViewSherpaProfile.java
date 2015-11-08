@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -29,13 +28,10 @@ import java.util.List;
  * Created by Kirtan on 10/21/15.
  */
 
-public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.OnRatingBarChangeListener {
+public class ViewSherpaProfile extends AppCompatActivity {
 
     ParseUser user;
     String sherpaName;
-    private static final float DEFAULT_RATING = 0;
-    public RatingBar ratingBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +54,6 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
                 for (ParseUser u : list) {
                     if (u.getUsername().equals(username)) {
                         user = u;
-                        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
                         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
                         TextView name = (TextView) findViewById(R.id.name);
@@ -70,7 +65,6 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
                         email.setText(user.getEmail());
                         TextView phone = (TextView) findViewById(R.id.phone);
                         phone.setText(user.getString("phone"));
-
 
                         ParseFile file = user.getParseFile("pp");
                         file.getDataInBackground(new GetDataCallback() {
@@ -91,13 +85,6 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
                             hour = "day";
                         }
                         cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
-                        ratingBar.setIsIndicator(true);
-                        if(user.containsKey("rating")) {
-                            ratingBar.setRating((float) user.getDouble("rating"));
-                        }
-                        else {
-                            ratingBar.setRating(0);
-                        }
                     }
                 }
             }
@@ -108,14 +95,6 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
             @Override
             public void onClick(View v) {
                 navigateToChat();
-            }
-        });
-
-        Button rateButton = (Button) findViewById(R.id.rateButton);
-        rateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToRating();
             }
         });
     }
@@ -142,13 +121,6 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
         return super.onOptionsItemSelected(item);
     }
 
-    private void navigateToRating()
-    {
-        Intent intent = new Intent(this, RatingSherpa.class);
-        intent.putExtra("username", sherpaName);
-        startActivity(intent);
-    }
-
     private void navigateToChat()
     {
         Intent intent = new Intent(this, Chat.class);
@@ -172,10 +144,5 @@ public class ViewSherpaProfile extends AppCompatActivity implements RatingBar.On
             ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
         }
-    }
-
-    @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        ratingBar.setOnRatingBarChangeListener((RatingBar.OnRatingBarChangeListener)new RatingSherpa().ratingSherpa);
     }
 }

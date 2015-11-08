@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-
             currentUser.put("chattingWith", "");
             currentUser.put("online", true);
             currentUser.saveInBackground();
@@ -79,15 +78,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(currentUser != null) {
-            currentUser.put("online", false);
-            currentUser.saveInBackground();
-        }
-    }*/
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -96,15 +86,6 @@ public class MainActivity extends AppCompatActivity {
             currentUser.saveInBackground();
         }
     }
-
-    /*@Override
-    protected void onStop() {
-        super.onStop();
-        if(currentUser != null) {
-            currentUser.put("online", false);
-            currentUser.saveInBackground();
-        }
-    }*/
 
     @Override
     protected void onPause() {
@@ -117,13 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().saveInBackground();
             ParseUser.logOut();
             navigateToLogin();
         }
