@@ -85,19 +85,20 @@ public class ViewSherpaProfile extends AppCompatActivity {
                             hour = "day";
                         }
                         cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
-
+                        Button chatButton = (Button) findViewById(R.id.chatButton);
+                        chatButton.setText("Chat with " + user.getString("firstname") + " " + user.getString("lastname"));
+                        chatButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                navigateToChat();
+                            }
+                        });
                     }
                 }
             }
         });
 
-        Button chatButton = (Button) findViewById(R.id.chatButton);
-        chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToChat();
-            }
-        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
