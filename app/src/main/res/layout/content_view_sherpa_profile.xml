@@ -97,7 +97,8 @@
         android:layout_toRightOf="@+id/profilePicture"
         android:layout_toEndOf="@+id/profilePicture"
         android:textSize="20dp"
-        android:autoLink="phone" />
+        android:autoLink="phone"
+        android:layout_marginBottom="5dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -105,5 +106,15 @@
         android:id="@+id/chatButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_below="@+id/phone"
+        android:layout_toRightOf="@+id/profilePicture"
+        android:numStars="5"
+        android:stepSize="1" />
 
 </RelativeLayout>

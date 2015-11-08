@@ -85,6 +85,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
                             hour = "day";
                         }
                         cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
+
                     }
                 }
             }
