@@ -14,9 +14,11 @@
     <!--
   IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
   to match your app's package name + ".permission.C2D_MESSAGE".
--->
-    <permission android:protectionLevel="signature"
-        android:name="com.sherpa.sherpa.permission.C2D_MESSAGE" />
+    -->
+    <permission
+        android:name="com.sherpa.sherpa.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.sherpa.sherpa.permission.C2D_MESSAGE" />
 
     <application
@@ -140,7 +142,7 @@
         <activity
             android:name=".Activites.PayPal_Selection"
             android:label="@string/title_activity_pay_pal__selection"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activites.ViewSherpaProfile" />
@@ -160,27 +162,39 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
+
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
-            android:exported="false">
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+<!--                   IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="com.sherpa.sherpa" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".Activites.RatingSherpa"
+            android:label="@string/title_activity_rating_sherpa"
+            android:parentActivityName=".Activites.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sherpa.sherpa.Activites.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
