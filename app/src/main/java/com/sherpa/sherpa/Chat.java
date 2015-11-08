@@ -120,6 +120,7 @@ public class Chat extends CustomActivity
         super.onPause();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
+            ParseUser.getCurrentUser().put("chattingWith", "");
             ParseUser.getCurrentUser().saveInBackground();
         }
         isRunning = false;

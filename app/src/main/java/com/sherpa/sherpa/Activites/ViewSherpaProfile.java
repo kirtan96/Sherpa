@@ -131,8 +131,8 @@ public class ViewSherpaProfile extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if(ParseUser.getCurrentUser() != null) {
             ParseUser.getCurrentUser().put("online", false);
             ParseUser.getCurrentUser().saveInBackground();
