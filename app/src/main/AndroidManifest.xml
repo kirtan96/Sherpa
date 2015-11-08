@@ -72,6 +72,7 @@
             android:name=".Activites.ViewProfile"
             android:label="@string/title_activity_view_profile"
             android:parentActivityName=".Activites.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -81,6 +82,7 @@
             android:name=".Activites.SearchSherpa"
             android:label="@string/title_activity_search_sherpa"
             android:parentActivityName=".Activites.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -90,6 +92,7 @@
         <activity
             android:name=".Activites.ViewSherpaProfile"
             android:label="@string/title_activity_view_sherpa_profile"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Activites.SearchSherpa"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -189,6 +192,7 @@
         <activity
             android:name=".Activites.RatingSherpa"
             android:label="@string/title_activity_rating_sherpa"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

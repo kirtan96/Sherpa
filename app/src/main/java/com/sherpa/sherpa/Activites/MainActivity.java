@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
+
             currentUser.put("chattingWith", "");
             currentUser.put("online", true);
             currentUser.saveInBackground();

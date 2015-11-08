@@ -11,12 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.Chat;
@@ -32,6 +35,9 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
     ParseUser user;
     String sherpaName;
+    float rating;
+    int rater;
+    RatingBar ratingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
                         TextView email = (TextView) findViewById(R.id.email);
                         email.setText(user.getEmail());
                         TextView phone = (TextView) findViewById(R.id.phone);
+                        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
                         phone.setText(user.getString("phone"));
 
                         ParseFile file = user.getParseFile("pp");
@@ -93,12 +100,27 @@ public class ViewSherpaProfile extends AppCompatActivity {
                                 navigateToChat();
                             }
                         });
+                        Button rateSherpa = (Button) findViewById(R.id.rateSherpa);
+                        rateSherpa.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                navigateToRate();
+                            }
+                        });
+
+                        updateRating(u.getUsername());
                     }
                 }
             }
         });
 
 
+    }
+
+    private void navigateToRate() {
+        Intent intent = new Intent(ViewSherpaProfile.this, RatingSherpa.class);
+        intent.putExtra("username", sherpaName);
+        startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,4 +169,26 @@ public class ViewSherpaProfile extends AppCompatActivity {
             ParseUser.getCurrentUser().saveInBackground();
         }
     }
+
+    public void updateRating(String name){
+        ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
+        pq.whereEqualTo("RateTo", name);
+        pq.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                rater = 0;
+                rating = 0;
+                for(ParseObject po: list)
+                {
+                    rating =  rating + (float)po.getDouble("rating");
+                    rater++;
+                }
+
+                rating = rating/rater;
+                ratingBar.setRating(rating);
+            }
+        });
+    }
+
+
 }

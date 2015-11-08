@@ -118,4 +118,13 @@
         android:numStars="5"
         android:stepSize="1" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Your Sherpa"
+        android:id="@+id/rateSherpa"
+        android:layout_below="@+id/listOfPlaces"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp" />
+
 </RelativeLayout>
