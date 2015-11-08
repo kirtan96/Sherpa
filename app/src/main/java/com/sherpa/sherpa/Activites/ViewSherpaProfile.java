@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -100,7 +99,9 @@ public class ViewSherpaProfile extends AppCompatActivity {
                                 navigateToChat();
                             }
                         });
+
                         Button rateSherpa = (Button) findViewById(R.id.rateSherpa);
+                        rateSherpa.setText("Rate " + user.getString("firstname") + " " + user.getString("lastname"));
                         rateSherpa.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -109,6 +110,8 @@ public class ViewSherpaProfile extends AppCompatActivity {
                         });
 
                         updateRating(u.getUsername());
+
+
                     }
                 }
             }
@@ -168,6 +171,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
             ParseUser.getCurrentUser().put("online", true);
             ParseUser.getCurrentUser().saveInBackground();
         }
+        updateRating(getIntent().getStringExtra("username"));
     }
 
     public void updateRating(String name){
@@ -178,17 +182,17 @@ public class ViewSherpaProfile extends AppCompatActivity {
             public void done(List<ParseObject> list, ParseException e) {
                 rater = 0;
                 rating = 0;
-                for(ParseObject po: list)
-                {
-                    rating =  rating + (float)po.getDouble("rating");
+                for (ParseObject po : list) {
+                    rating = rating + (float) po.getDouble("rating");
                     rater++;
                 }
 
-                rating = rating/rater;
-                ratingBar.setRating(rating);
+                rating = rating / rater;
+                RatingBar ratingBar1 = (RatingBar) findViewById(R.id.ratingBar);
+                ratingBar1.setRating(rating);
+                TextView raters = (TextView) findViewById(R.id.raters);
+                raters.setText("" + rater);
             }
         });
     }
-
-
 }
