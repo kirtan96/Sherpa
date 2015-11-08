@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -56,7 +57,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
-                for (ParseUser u : list) {
+                for (final ParseUser u : list) {
                     if (u.getUsername().equals(username)) {
                         user = u;
 
@@ -105,13 +106,11 @@ public class ViewSherpaProfile extends AppCompatActivity {
                         rateSherpa.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                navigateToRate();
+                                navigateToRate(u.getUsername());
                             }
                         });
 
                         updateRating(u.getUsername());
-
-
                     }
                 }
             }
@@ -120,31 +119,34 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
     }
 
-    private void navigateToRate() {
-        Intent intent = new Intent(ViewSherpaProfile.this, RatingSherpa.class);
-        intent.putExtra("username", sherpaName);
-        startActivity(intent);
+    private void navigateToRate(String name) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Rating");
+        query.whereEqualTo("RateTo", name);
+        query.whereEqualTo("RateFrom", ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (list.isEmpty()) {
+                    Intent intent = new Intent(ViewSherpaProfile.this, RatingSherpa.class);
+                    intent.putExtra("username", sherpaName);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(ViewSherpaProfile.this, "You have already rated this Sherpa!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.checkout, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_checkout) {
-
-            //navigateToCheckout();
-        //}
-
-
         return super.onOptionsItemSelected(item);
     }
 
