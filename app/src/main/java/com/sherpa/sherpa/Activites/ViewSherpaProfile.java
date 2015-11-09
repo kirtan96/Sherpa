@@ -175,7 +175,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
         }
         updateRating(getIntent().getStringExtra("username"));
     }
-
+//updates rating
     public void updateRating(String name){
         ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
         pq.whereEqualTo("RateTo", name);
