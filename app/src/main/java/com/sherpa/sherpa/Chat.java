@@ -189,14 +189,16 @@ public class Chat extends CustomActivity
         query1.whereEqualTo("username", buddy).findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
-                query.whereEqualTo("userId", list.get(0).getObjectId());
+                if(list.get(0).getBoolean("loggedIn")) {
+                    query.whereEqualTo("userId", list.get(0).getObjectId());
 
-                //send notification
-                ParsePush push = new ParsePush();
-                push.setQuery(query);
-                push.setMessage("You have a new message from " + ParseUser.getCurrentUser().getString("firstname") + " " +
-                        ParseUser.getCurrentUser().getString("lastname"));
-                push.sendInBackground();
+                    //send notification
+                    ParsePush push = new ParsePush();
+                    push.setQuery(query);
+                    push.setMessage("You have a new message from " + ParseUser.getCurrentUser().getString("firstname") + " " +
+                            ParseUser.getCurrentUser().getString("lastname"));
+                    push.sendInBackground();
+                }
             }
         });
 
