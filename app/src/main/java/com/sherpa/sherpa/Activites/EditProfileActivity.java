@@ -219,8 +219,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if(user != null) {
             user.put("online", false);
             user.saveInBackground();
@@ -231,7 +231,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(user != null) {
-            user.put("online", false);
+            user.put("online", true);
             user.saveInBackground();
         }
     }

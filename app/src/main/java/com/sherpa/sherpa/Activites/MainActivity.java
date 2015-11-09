@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.sherpa.sherpa.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-
             currentUser.put("chattingWith", "");
             currentUser.put("online", true);
+            currentUser.put("loggedIn", true);
             currentUser.saveInBackground();
             welcome = (TextView) findViewById(R.id.welcome);
             tg = (Button) findViewById(R.id.tgButton);
@@ -103,8 +106,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_logout) {
             ParseUser.getCurrentUser().put("online", false);
-            ParseUser.getCurrentUser().saveInBackground();
-            ParseUser.logOut();
+            ParseUser.getCurrentUser().put("loggedIn", false);
+            ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        Toast.makeText(MainActivity.this,"You have successfully logged out!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            ParseUser.getCurrentUser().logOut();
             navigateToLogin();
         }
         else
