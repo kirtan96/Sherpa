@@ -9,9 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -118,15 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-            currentUser.logOutInBackground(new LogOutCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e==null)
-                    {
-                        Toast.makeText(MainActivity.this, "You have successfully logged out!", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+            ParseUser.logOutInBackground();
             navigateToLogin();
         }
         else
