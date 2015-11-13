@@ -149,11 +149,12 @@ public class ViewProfile extends AppCompatActivity {
             public void done(List<ParseObject> list, ParseException e) {
                 rater = 0;
                 rating = 0;
-                for (ParseObject po : list) {
-                    rating = rating + (float) po.getDouble("rating");
-                    rater++;
+                if(list!=null) {
+                    for (ParseObject po : list) {
+                        rating = rating + (float) po.getDouble("rating");
+                        rater++;
+                    }
                 }
-
                 rating = rating / rater;
                 RatingBar ratingBar1 = (RatingBar) findViewById(R.id.ratingBar);
                 ratingBar1.setRating(rating);

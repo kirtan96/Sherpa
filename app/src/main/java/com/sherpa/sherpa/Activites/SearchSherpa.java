@@ -61,19 +61,19 @@ public class SearchSherpa extends AppCompatActivity {
                             userlist = new ArrayList<>();
                             userListString = new ArrayList<>();
                             for (ParseUser user : list) {
-                                if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()) ||
-                                        user.getString("places").toLowerCase().contains(editText.getText().toString().toLowerCase())) {
-                                    total++;
-                                    if (user.getBoolean("available")) {
-                                        userlist.add(user);
-                                        i++;
-                                        userListString.add(user.getString("firstname") + " " + user.getString("lastname"));
-                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
-                                                android.R.layout.simple_list_item_1, userListString);
-                                        listView.setAdapter(arrayAdapter);
+                                    if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()) ||
+                                            user.getString("places").toLowerCase().contains(editText.getText().toString().toLowerCase())) {
+                                        total++;
+                                        if (user.getBoolean("available")) {
+                                            userlist.add(user);
+                                            i++;
+                                            userListString.add(user.getString("firstname") + " " + user.getString("lastname"));
+                                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
+                                                    android.R.layout.simple_list_item_1, userListString);
+                                            listView.setAdapter(arrayAdapter);
+                                        }
                                     }
                                 }
-                            }
                             if(userListString.isEmpty())
                             {
                                 userListString.add("There are no Sherpas available in this city!");

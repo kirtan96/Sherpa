@@ -85,9 +85,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(currentUser != null) {
-            currentUser.put("online", true);
-            currentUser.saveInBackground();
+        if(ParseUser.getCurrentUser() != null) {
+            ParseUser.getCurrentUser().put("online", true);
+            ParseUser.getCurrentUser().put("chattingWith", "");
+            ParseUser.getCurrentUser().put("loggedIn", true);
+            ParseUser.getCurrentUser().saveInBackground();
         }
     }
 
@@ -111,11 +113,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        Toast.makeText(MainActivity.this,"You have successfully logged out!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "You have successfully logged out!", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-            ParseUser.logOut();
+            ParseUser.getCurrentUser().logOutInBackground();
             navigateToLogin();
         }
         else

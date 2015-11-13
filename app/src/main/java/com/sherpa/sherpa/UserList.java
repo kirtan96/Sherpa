@@ -51,7 +51,7 @@ public class UserList extends CustomActivity
         //getActionBar().setDisplayHomeAsUpEnabled(false);
         user = ParseUser.getCurrentUser();
         user.put("online", true);
-        user.saveEventually();
+        user.saveInBackground();
         //uList = new ArrayList<ParseUser>();
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
         swipeRefreshLayout.setColorSchemeColors(android.R.color.holo_blue_bright,
@@ -183,6 +183,12 @@ public class UserList extends CustomActivity
                                             });
                                         }
                                     });
+                        }
+                        else {
+                            dia.dismiss();
+                            Toast.makeText(UserList.this,
+                                    R.string.msg_no_user_found,
+                                    Toast.LENGTH_SHORT).show();
                         }
             }
 
