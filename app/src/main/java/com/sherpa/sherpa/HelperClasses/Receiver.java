@@ -20,4 +20,5 @@ public class Receiver extends ParsePushBroadcastReceiver {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
     }
+
 }
