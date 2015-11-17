@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.sherpa.sherpa.R;
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+            installation.deleteInBackground();
+            installation.saveInBackground();
             ParseUser.logOutInBackground();
             navigateToLogin();
         }

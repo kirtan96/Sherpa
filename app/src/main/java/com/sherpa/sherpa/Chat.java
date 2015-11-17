@@ -189,7 +189,7 @@ public class Chat extends CustomActivity
         query1.whereEqualTo("username", buddy).findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
-                if(list.get(0).getBoolean("loggedIn")) {
+                if (list.get(0).getBoolean("loggedIn")) {
                     query.whereEqualTo("userId", list.get(0).getObjectId());
 
                     //send notification
@@ -216,9 +216,10 @@ public class Chat extends CustomActivity
                 {
                     if(u.getUsername().equals(buddy))
                     {
-                        if(!u.getString("chattingWith").equals(ParseUser.getCurrentUser().getUsername()))
-                        sendPushNotification();
-                        break;
+                        if(!u.getString("chattingWith").equals(ParseUser.getCurrentUser().getUsername())) {
+                            sendPushNotification();
+                            break;
+                        }
                     }
                 }
             }
