@@ -33,13 +33,17 @@ public class RatingSherpa extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        submitButton = (Button) findViewById(R.id.submitButton);
+        ratingSherpa = (RatingBar) findViewById(R.id.ratingSherpa);
+        ratingText = (TextView) findViewById(R.id.ratingText);
+        ratingText.setText("Rate the Sherpa!");
+
         Intent intent = getIntent();
         final String buddy = intent.getStringExtra("username");
 
 
         final Intent RatingSherpaIntent = getIntent();
         final String s = RatingSherpaIntent.getStringExtra("username");
-
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         //query.whereEqualTo("username", s);
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -48,7 +52,6 @@ public class RatingSherpa extends AppCompatActivity  {
                 for (ParseUser users : list)
                     if (users.getUsername().equals(s)) {
                         final ParseUser user = users;
-
                         user.saveInBackground();
                         ratingSherpa.setOnRatingBarChangeListener(
                                 new OnRatingBarChangeListener() {
@@ -59,27 +62,18 @@ public class RatingSherpa extends AppCompatActivity  {
                                     }
                                 }
                         );
-
                         submitButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                khatam(buddy);
-
+                                submitRating(buddy);
                             }
                         });
                     }
             }
         });
-
-
-        submitButton = (Button) findViewById(R.id.submitButton);
-        ratingSherpa = (RatingBar) findViewById(R.id.ratingSherpa);
-        ratingText = (TextView) findViewById(R.id.ratingText);
-
-
     }
 
-    private void khatam(String buddy) {
+    private void submitRating(String buddy) {
         ParseObject po = new ParseObject("Rating");
         po.put("RateFrom", ParseUser.getCurrentUser().getUsername());
         po.put("RateTo", buddy);
@@ -88,10 +82,4 @@ public class RatingSherpa extends AppCompatActivity  {
         po.saveEventually();
         finish();
     }
-
-
-
-
-
-
 }
