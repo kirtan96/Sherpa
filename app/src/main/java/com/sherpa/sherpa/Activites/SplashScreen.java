@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sherpa.sherpa.R;
 
-
 /**
  * Created by Kirtan on 10/21/15.
  */
@@ -22,7 +21,6 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();

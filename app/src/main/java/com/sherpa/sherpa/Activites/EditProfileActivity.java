@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,10 +15,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.io.ByteArrayOutputStream;
@@ -32,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
     private static final int PICK_FROM_GALLERY = 2;
-    ParseUser user;
+    SherpaProfile user;
     boolean av;
     boolean h;
 
@@ -43,11 +41,9 @@ public class EditProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Intent activityintent = getIntent();
-        user = ParseUser.getCurrentUser();
-        user.put("online", true);
-        user.saveInBackground();
-        TextView insImage =(TextView) findViewById(R.id.textView);
+        user = new SherpaProfile(ParseUser.getCurrentUser());
+        user.setOnline(true);
+        user.saveUser();
         profilePic = (ImageView) findViewById(R.id.profilePic);
         TextView name = (TextView) findViewById(R.id.name);
         final EditText city = (EditText) findViewById(R.id.city);
@@ -61,17 +57,10 @@ public class EditProfileActivity extends AppCompatActivity {
         final EditText phone = (EditText) findViewById(R.id.phone);
 
         email.setText(user.getEmail());
-        phone.setText(user.getString("phone"));
+        phone.setText(user.getPhone());
 
-        if(user.containsKey("pp")) {
-            ParseFile file = user.getParseFile("pp");
-            file.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] data, ParseException e) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    profilePic.setImageBitmap(bmp);
-                }
-            });
+        if(user.contains("pp")) {
+            user.setProfilePic(profilePic);
         }
         avyes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +95,8 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
         Button save = (Button) findViewById(R.id.saveButton);
-        name.setText(user.getString("firstname") + " " + user.getString("lastname"));
-        if(user.getBoolean("available"))
+        name.setText(user.getFirstname() + " " + user.getLastname());
+        if(user.getAvailability())
         {
             avyes.setChecked(true);
             avno.setChecked(false);
@@ -117,9 +106,9 @@ public class EditProfileActivity extends AppCompatActivity {
             avno.setChecked(true);
             av = false;
         }
-        city.setText(user.getString("gcity"));
-        cost.setText(user.getDouble("cost") + "");
-        if(user.getString("costType").equals("H"))
+        city.setText(user.getCity());
+        cost.setText(user.getCost() + "");
+        if(user.getCostType().equals("H"))
         {
             hour.setChecked(true);
             day.setChecked(false);
@@ -139,10 +128,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 try {
                     Intent intent = new Intent();
-// call android default gallery
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-// ******** code for crop image
                     intent.putExtra("crop", "true");
                     intent.putExtra("aspectX", 0);
                     intent.putExtra("aspectY", 0);
@@ -158,11 +145,11 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        places.setText(user.getString("places"));
+        places.setText(user.getPlaces());
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user.containsKey("pp") &&
+                if (user.contains("pp") &&
                         city.getText().toString().length() > 1 &&
                         places.getText().toString().length() > 1 &&
                         !city.getText().toString().contains("-") &&
@@ -170,19 +157,19 @@ public class EditProfileActivity extends AppCompatActivity {
                         !city.getText().toString().contains(";") &&
                         !city.getText().toString().contains("/") &&
                         Double.parseDouble(cost.getText().toString()) > 0) {
-                    user.put("gcity", city.getText().toString());
-                    user.put("cost", Double.parseDouble(cost.getText().toString()));
-                    user.put("places", places.getText().toString());
-                    user.put("available", av);
-                    user.put("profile", true);
-                    user.put("phone", phone.getText().toString());
+                    user.setCity(city.getText().toString());
+                    user.setCost(Double.parseDouble(cost.getText().toString()));
+                    user.setPlaces(places.getText().toString());
+                    user.setAvailability(av);
+                    user.setProfileCreated(true);
+                    user.setPhone(phone.getText().toString());
                     user.setEmail(email.getText().toString());
                     if (h) {
-                        user.put("costType", "H");
+                        user.setCostType("H");
                     } else {
-                        user.put("costType", "D");
+                        user.setCostType("D");
                     }
-                    user.saveInBackground();
+                    user.saveUser();
                     Intent intent1 = new Intent(EditProfileActivity.this, MainActivity.class);
                     startActivity(intent1);
                 } else {
@@ -211,8 +198,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     ParseFile pFile = new ParseFile(user.getUsername() + ".jpg", stream.toByteArray());
                     pFile.saveInBackground();
-                    user.put("pp", pFile);
-                    user.saveInBackground();
+                    user.addProfilPic(pFile);
+                    user.saveUser();
                 }
             }
         }
@@ -221,18 +208,18 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(user != null) {
-            user.put("online", false);
-            user.saveInBackground();
+        if(!user.isNull()) {
+            user.setOnline(false);
+            user.saveUser();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(user != null) {
-            user.put("online", true);
-            user.saveInBackground();
+        if(!user.isNull()) {
+            user.setOnline(true);
+            user.saveUser();
         }
     }
 }

@@ -45,20 +45,17 @@ public class RatingSherpa extends AppCompatActivity  {
         final Intent RatingSherpaIntent = getIntent();
         final String s = RatingSherpaIntent.getStringExtra("username");
         ParseQuery<ParseUser> query = ParseUser.getQuery();
-        //query.whereEqualTo("username", s);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
                 for (ParseUser users : list)
                     if (users.getUsername().equals(s)) {
-                        final ParseUser user = users;
-                        user.saveInBackground();
+                        users.saveInBackground();
                         ratingSherpa.setOnRatingBarChangeListener(
                                 new OnRatingBarChangeListener() {
                                     @Override
                                     public void onRatingChanged(RatingBar userRating, float rating, boolean fromUser) {
                                         ratingText.setText("You Have Rated " + String.valueOf(rating) + " out of 5 stars!");
-
                                     }
                                 }
                         );
@@ -77,7 +74,6 @@ public class RatingSherpa extends AppCompatActivity  {
         ParseObject po = new ParseObject("Rating");
         po.put("RateFrom", ParseUser.getCurrentUser().getUsername());
         po.put("RateTo", buddy);
-        // po.put("createdAt", "");
         po.put("rating", ratingSherpa.getRating());
         po.saveEventually();
         finish();

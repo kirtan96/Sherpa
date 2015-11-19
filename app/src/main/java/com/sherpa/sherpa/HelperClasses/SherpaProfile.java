@@ -16,9 +16,10 @@ import com.sherpa.sherpa.Interfaces.Profile;
 public class SherpaProfile implements Profile{
 
     ParseUser user;
-    @Override
-    public ParseUser getCurrentParseUser() {
-        return ParseUser.getCurrentUser();
+
+    public SherpaProfile(ParseUser u)
+    {
+        user = u;
     }
 
     @Override
@@ -62,21 +63,6 @@ public class SherpaProfile implements Profile{
     }
 
     @Override
-    public void getProfilePic(final ImageView view) {
-        if(user.containsKey("pp"))
-        {
-            ParseFile file = user.getParseFile("pp");
-            file.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] data, ParseException e) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    view.setImageBitmap(bmp);
-                }
-            });
-        }
-    }
-
-    @Override
     public String getCity() {
         return user.getString("gcity");
     }
@@ -84,11 +70,6 @@ public class SherpaProfile implements Profile{
     @Override
     public String getPlaces() {
         return user.getString("places");
-    }
-
-    @Override
-    public void setCurrentParseUser() {
-        this.user = ParseUser.getCurrentUser();
     }
 
     @Override
@@ -117,8 +98,16 @@ public class SherpaProfile implements Profile{
     }
 
     @Override
-    public void setProfilePic(ParseFile file) {
-        user.put("pp", file);
+    public void setProfilePic(final ImageView profilePic)
+    {
+        ParseFile file = user.getParseFile("pp");
+        file.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                profilePic.setImageBitmap(bmp);
+            }
+        });
     }
 
     @Override
@@ -139,5 +128,47 @@ public class SherpaProfile implements Profile{
     @Override
     public Boolean contains(String s) {
         return user.containsKey(s);
+    }
+
+    @Override
+    public void setChattingWith(String s) {
+        user.put("chattingWith", s);
+    }
+
+    @Override
+    public void setOnline(boolean b) {
+        user.put("online", b);
+    }
+
+    @Override
+    public void setLoggedIn(boolean b) {
+        user.put("loggedIn", true);
+    }
+
+    @Override
+    public boolean hasCreatedProfile() {
+        return user.getBoolean("profile");
+    }
+
+    @Override
+    public boolean isNull() {
+        if(user == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public void addProfilPic(ParseFile pFile) {
+        user.put("pp", pFile);
+    }
+
+    @Override
+    public void setProfileCreated(boolean b) {
+        user.put("profile", b);
     }
 }

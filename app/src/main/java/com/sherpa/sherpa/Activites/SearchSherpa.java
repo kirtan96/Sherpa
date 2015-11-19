@@ -19,6 +19,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.util.ArrayList;
@@ -31,7 +32,9 @@ import java.util.List;
 
 public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
-    ArrayList<ParseUser> userlist;
+    ArrayList<SherpaProfile> userlist;
+    SherpaProfile currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +44,10 @@ public class SearchSherpa extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView availableNumber = (TextView) findViewById(R.id.availableNumber);
 
-        ParseUser.getCurrentUser().put("online", true);
-        ParseUser.getCurrentUser().saveInBackground();
+        currentUser = new SherpaProfile(ParseUser.getCurrentUser());
+
+        currentUser.setOnline(true);
+        currentUser.saveUser();
 
         final EditText editText = (EditText) findViewById(R.id.searchText);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -65,14 +70,15 @@ public class SearchSherpa extends AppCompatActivity {
                             userlist = new ArrayList<>();
                             userListString = new ArrayList<>();
                             String searchCity = editText.getText().toString().toLowerCase().trim();
-                            for (ParseUser user : list) {
-                                    if (user.getString("gcity").toLowerCase().equals(searchCity) ||
-                                            user.getString("places").toLowerCase().contains(searchCity)) {
+                            for (ParseUser u : list) {
+                                SherpaProfile user = new SherpaProfile(u);
+                                    if (user.getCity().toLowerCase().equals(searchCity) ||
+                                            user.getPlaces().toLowerCase().contains(searchCity)) {
                                         total++;
-                                        if (user.getBoolean("available")) {
+                                        if (user.getAvailability()) {
                                             userlist.add(user);
                                             i++;
-                                            userListString.add(user.getString("firstname") + " " + user.getString("lastname"));
+                                            userListString.add(user.getFirstname() + " " + user.getLastname());
                                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
                                                     android.R.layout.simple_list_item_1, userListString);
                                             listView.setAdapter(arrayAdapter);
@@ -112,18 +118,18 @@ public class SearchSherpa extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", false);
-            ParseUser.getCurrentUser().saveInBackground();
+        if(!currentUser.isNull()) {
+            currentUser.setOnline(false);
+            currentUser.saveUser();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", true);
-            ParseUser.getCurrentUser().saveInBackground();
+        if(!currentUser.isNull()) {
+            currentUser.setOnline(true);
+            currentUser.saveUser();
         }
     }
 }

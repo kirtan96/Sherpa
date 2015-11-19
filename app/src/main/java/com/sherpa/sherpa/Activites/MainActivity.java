@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 import com.sherpa.sherpa.UserList;
 
@@ -20,35 +21,35 @@ public class MainActivity extends AppCompatActivity {
     protected TextView welcome;
     protected Button tg;
     protected Button t;
-    ParseUser currentUser;
+    SherpaProfile currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        currentUser = ParseUser.getCurrentUser();
-        if(currentUser == null)
+        currentUser = new SherpaProfile(ParseUser.getCurrentUser());
+        if(currentUser.isNull())
         {
             navigateToLogin();
         }
         else
         {
-            currentUser.put("chattingWith", "");
-            currentUser.put("online", true);
-            currentUser.put("loggedIn", true);
-            currentUser.saveInBackground();
+            currentUser.setChattingWith("");
+            currentUser.setOnline(true);
+            currentUser.setLoggedIn(true);
+            currentUser.saveUser();
             welcome = (TextView) findViewById(R.id.welcome);
             tg = (Button) findViewById(R.id.tgButton);
             t = (Button) findViewById(R.id.touristButton);
-            welcome.setText("Welcome " + currentUser.getString("firstname") + " " +
-                    currentUser.getString("lastname"));
+            welcome.setText("Welcome " + currentUser.getFirstname() + " " +
+                    currentUser.getLastname());
             tg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!currentUser.getBoolean("profile")) {
+                    if (!currentUser.hasCreatedProfile()) {
                         navigateToEditProfile();
                     } else {
                         navigateToViewProfile(); //need to change this
@@ -84,20 +85,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().put("online", true);
-            ParseUser.getCurrentUser().put("chattingWith", "");
-            ParseUser.getCurrentUser().put("loggedIn", true);
-            ParseUser.getCurrentUser().saveInBackground();
+        if(!currentUser.isNull()) {
+            currentUser.setOnline(true);
+            currentUser.setChattingWith("");
+            currentUser.setLoggedIn(true);
+            currentUser.saveUser();
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(currentUser != null) {
-            currentUser.put("online", false);
-            currentUser.saveInBackground();
+        if(!currentUser.isNull()) {
+            currentUser.setOnline(false);
+            currentUser.saveUser();
         }
     }
 
@@ -106,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            ParseUser.getCurrentUser().put("online", false);
-            ParseUser.getCurrentUser().put("loggedIn", false);
-            ParseUser.getCurrentUser().saveInBackground();
+            currentUser.setOnline(false);
+            currentUser.setLoggedIn(false);
+            currentUser.saveUser();
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             installation.deleteInBackground();
             installation.saveInBackground();
