@@ -64,9 +64,10 @@ public class SearchSherpa extends AppCompatActivity {
                             int total = 0;
                             userlist = new ArrayList<>();
                             userListString = new ArrayList<>();
+                            String searchCity = editText.getText().toString().toLowerCase().trim();
                             for (ParseUser user : list) {
-                                    if (user.getString("gcity").toLowerCase().equals(editText.getText().toString().toLowerCase()) ||
-                                            user.getString("places").toLowerCase().contains(editText.getText().toString().toLowerCase())) {
+                                    if (user.getString("gcity").toLowerCase().equals(searchCity) ||
+                                            user.getString("places").toLowerCase().contains(searchCity)) {
                                         total++;
                                         if (user.getBoolean("available")) {
                                             userlist.add(user);
