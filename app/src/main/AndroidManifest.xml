@@ -83,8 +83,7 @@
             android:label="@string/title_activity_search_sherpa"
             android:parentActivityName=".Activites.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activites.MainActivity" />
@@ -108,11 +107,7 @@
                 android:value=".Activites.ViewSherpaProfile" />
         </activity>
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
 
         <service
             android:name="com.paypal.android.sdk.payments.PayPalService"
