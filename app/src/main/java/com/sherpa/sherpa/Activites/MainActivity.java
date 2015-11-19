@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.sherpa.sherpa.R;
+import com.sherpa.sherpa.UserList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -109,19 +108,16 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             ParseUser.getCurrentUser().put("online", false);
             ParseUser.getCurrentUser().put("loggedIn", false);
-            ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-
-                    }
-                }
-            });
+            ParseUser.getCurrentUser().saveInBackground();
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             installation.deleteInBackground();
             installation.saveInBackground();
             ParseUser.logOutInBackground();
             navigateToLogin();
+        }
+        else if(id == R.id.action_chat)
+        {
+            navigateToChat();
         }
         else
         {
@@ -129,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void navigateToChat() {
+        Intent intent = new Intent(MainActivity.this, UserList.class);
+        startActivity(intent);
     }
 
     private void navigateToEditProfile()
