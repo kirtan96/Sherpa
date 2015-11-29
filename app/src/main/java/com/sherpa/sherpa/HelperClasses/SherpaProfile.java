@@ -4,11 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.Interfaces.Profile;
+
+import java.util.List;
 
 /**
  * Created by Kirtan on 10/30/15.
@@ -16,6 +21,7 @@ import com.sherpa.sherpa.Interfaces.Profile;
 public class SherpaProfile implements Profile{
 
     ParseUser user;
+    double rating;
 
     public SherpaProfile(ParseUser u)
     {
@@ -152,14 +158,7 @@ public class SherpaProfile implements Profile{
 
     @Override
     public boolean isNull() {
-        if(user == null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return user == null;
     }
 
     @Override
@@ -170,5 +169,25 @@ public class SherpaProfile implements Profile{
     @Override
     public void setProfileCreated(boolean b) {
         user.put("profile", b);
+    }
+
+    public double getRating() {
+        rating = 0;
+        ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
+        pq.whereEqualTo("RateTo", getUsername());
+        pq.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                int rater = 0;
+                rating = 0;
+                for (ParseObject po : list) {
+                    rating = rating + po.getDouble("rating");
+                    rater++;
+                }
+
+                rating = rating / rater;
+            }
+        });
+        return rating;
     }
 }

@@ -34,6 +34,7 @@ public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
     ArrayList<SherpaProfile> userlist;
     SherpaProfile currentUser;
+    ArrayList<Double> rating = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class SearchSherpa extends AppCompatActivity {
                     handled = true;
 
 
-                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                    final ParseQuery<ParseUser> query = ParseUser.getQuery();
                     query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
                     query.findInBackground(new FindCallback<ParseUser>() {
                         @Override
@@ -78,7 +79,13 @@ public class SearchSherpa extends AppCompatActivity {
                                         if (user.getAvailability()) {
                                             userlist.add(user);
                                             i++;
-                                            userListString.add(user.getFirstname() + " " + user.getLastname());
+
+                                            userListString.add(user.getFirstname() + " " +
+                                                            user.getLastname() +
+                                                            "\nRate: $" +
+                                                            user.getCost() +
+                                                            "/" + user.getCostType() + "\n"
+                                            );
                                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
                                                     android.R.layout.simple_list_item_1, userListString);
                                             listView.setAdapter(arrayAdapter);
