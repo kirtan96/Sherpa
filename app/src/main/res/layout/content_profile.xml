@@ -183,7 +183,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Which famous place(s) will you cover during your guide?"
+        android:text="Which locations/attractions will you cover during your guide?"
         android:id="@+id/textView9"
         android:layout_below="@+id/cost"
         android:layout_alignParentLeft="true"

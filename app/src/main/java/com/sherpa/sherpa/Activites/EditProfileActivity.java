@@ -133,7 +133,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     intent.putExtra("crop", "true");
                     intent.putExtra("aspectX", 0);
                     intent.putExtra("aspectY", 0);
-                    intent.putExtra("outputX", 200);
+                    intent.putExtra("outputX", 170);
                     intent.putExtra("outputY", 150);
                     intent.putExtra("return-data", true);
                     startActivityForResult(Intent.createChooser(intent,

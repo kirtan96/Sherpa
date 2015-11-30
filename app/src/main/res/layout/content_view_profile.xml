@@ -11,13 +11,14 @@
     android:background="@drawable/bg_gradient">
 
     <ImageView
-        android:layout_width="165dp"
+        android:layout_width="170dp"
         android:layout_height="150dp"
         android:id="@+id/profilePicture"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:background="@drawable/image_border" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,40 +31,44 @@
         android:layout_toEndOf="@+id/profilePicture" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Today, I will be a Sherpa in "
+        android:text="City: "
         android:id="@+id/city"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:layout_below="@+id/cost"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#21050706"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Places that I will show in "
+        android:text="Locations/Attractions: "
         android:id="@+id/placeCity"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:background="#21050706"
         android:layout_below="@+id/city"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listOfPlaces"
+        android:textSize="20dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/image_border"
         android:layout_below="@+id/placeCity"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:textSize="20dp"
-        android:textColor="@android:color/white" />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -75,7 +80,9 @@
         android:layout_below="@+id/profilePicture"
         android:layout_alignRight="@+id/name"
         android:layout_alignEnd="@+id/name"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="5dp"
+        android:background="#21050706"
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -127,5 +134,15 @@
         android:layout_below="@+id/phone"
         android:layout_toRightOf="@+id/ratingBar"
         android:layout_toEndOf="@+id/ratingBar" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:id="@+id/edit"
+        android:layout_above="@+id/current_chats"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_gradient2"
+        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>
