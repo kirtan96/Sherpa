@@ -15,12 +15,30 @@ import com.sherpa.sherpa.Interfaces.Profile;
  */
 public class SherpaProfile implements Profile{
 
-    ParseUser user;
-    double rating;
+    private ParseUser user;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private String city;
+    private double cost;
+    private boolean availability;
+    private String costType;
+    private String places;
 
     public SherpaProfile(ParseUser u)
     {
+
         user = u;
+        firstname = user.getString("firstname");
+        lastname = user.getString("lastname");
+        email = user.getEmail();
+        phone = user.getString("phone");
+        cost = user.getDouble("cost");
+        availability = user.getBoolean("available");
+        costType = user.getString("costType");
+        city = user.getString("gcity");
+        places = user.getString("places");
     }
 
     @Override
@@ -30,71 +48,76 @@ public class SherpaProfile implements Profile{
 
     @Override
     public String getFirstname() {
-        return user.getString("firstname");
+        return firstname;
     }
 
     @Override
     public String getLastname() {
-        return user.getString("lastname");
+        return lastname;
     }
 
     @Override
     public String getEmail() {
-        return user.getEmail();
+        return email;
     }
 
     @Override
     public String getPhone() {
-        return user.getString("phone");
+        return phone;
     }
 
     @Override
     public Double getCost() {
-        return user.getDouble("cost");
+        return cost;
     }
 
     @Override
     public Boolean getAvailability() {
-        return user.getBoolean("available");
+        return availability;
     }
 
     @Override
     public String getCostType() {
-        return user.getString("costType");
+        return costType;
     }
 
     @Override
     public String getCity() {
-        return user.getString("gcity");
+        return city;
     }
 
     @Override
     public String getPlaces() {
-        return user.getString("places");
+        return places;
     }
 
     @Override
-    public void setEmail(String email) {
+    public void setEmail(String email1) {
+        email = email1;
         user.setEmail(email);
     }
 
     @Override
-    public void setPhone(String phone) {
+    public void setPhone(String phone1) {
+        phone = phone1;
         user.put("phone", phone);
     }
 
     @Override
-    public void setCost(Double cost) {
+    public void setCost(Double cost1) {
+        cost = cost1;
         user.put("cost", cost);
     }
 
     @Override
-    public void setAvailability(Boolean availability) {
+    public void setAvailability(Boolean availability1) {
+        availability = availability1;
         user.put("available", true);
     }
 
     @Override
-    public void setCostType(String costType) {
+    public void setCostType(String costType1) {
+        costType = costType1;
         user.put("costType", costType);
     }
 
@@ -112,12 +135,14 @@ public class SherpaProfile implements Profile{
     }
 
     @Override
-    public void setCity(String city) {
+    public void setCity(String city1) {
+        city = city1;
         user.put("gcity", city);
     }
 
     @Override
-    public void setPlaces(String places) {
+    public void setPlaces(String places1) {
+        places = places1;
         user.put("places", places);
     }
 
