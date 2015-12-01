@@ -64,8 +64,7 @@ public class EditProfileActivity extends AppCompatActivity {
         final EditText phone = (EditText) findViewById(R.id.phone);
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Integer[] pass = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14, 15, 16, 17, 18, 19,20};
-        ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, pass);
-        spinner.setAdapter(integerArrayAdapter);
+        spinner.setAdapter(new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, pass));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override

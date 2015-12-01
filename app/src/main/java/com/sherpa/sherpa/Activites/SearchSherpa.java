@@ -82,7 +82,7 @@ public class SearchSherpa extends AppCompatActivity {
 
                                         userListString.add(user.getFirstname() + " " +
                                                         user.getLastname() +
-                                                        "\nCost: $" +
+                                                        "\nCharge: $" +
                                                         user.getCost() +
                                                         "/" + user.getCostType() + "\n"
                                         );

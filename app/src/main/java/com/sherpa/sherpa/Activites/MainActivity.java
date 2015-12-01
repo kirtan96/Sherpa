@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView welcome;
     protected Button tg;
     protected Button t;
-    SherpaProfile currentUser;
+    static SherpaProfile currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
