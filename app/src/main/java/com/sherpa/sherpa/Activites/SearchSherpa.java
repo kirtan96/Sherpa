@@ -73,25 +73,25 @@ public class SearchSherpa extends AppCompatActivity {
                             String searchCity = editText.getText().toString().toLowerCase().trim();
                             for (ParseUser u : list) {
                                 SherpaProfile user = new SherpaProfile(u);
-                                    if (user.getCity().toLowerCase().equals(searchCity) ||
-                                            user.getPlaces().toLowerCase().contains(searchCity)) {
-                                        total++;
-                                        if (user.getAvailability()) {
-                                            userlist.add(user);
-                                            i++;
+                                if (user.getCity().toLowerCase().equals(searchCity) ||
+                                        user.getPlaces().toLowerCase().contains(searchCity)) {
+                                    total++;
+                                    if (user.getAvailability()) {
+                                        userlist.add(user);
+                                        i++;
 
-                                            userListString.add(user.getFirstname() + " " +
-                                                            user.getLastname() +
-                                                            "\nRate: $" +
-                                                            user.getCost() +
-                                                            "/" + user.getCostType() + "\n"
-                                            );
-                                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
-                                                    android.R.layout.simple_list_item_1, userListString);
-                                            listView.setAdapter(arrayAdapter);
-                                        }
+                                        userListString.add(user.getFirstname() + " " +
+                                                        user.getLastname() +
+                                                        "\nCost: $" +
+                                                        user.getCost() +
+                                                        "/" + user.getCostType() + "\n"
+                                        );
+                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
+                                                android.R.layout.simple_list_item_1, userListString);
+                                        listView.setAdapter(arrayAdapter);
                                     }
                                 }
+                            }
                             if(userListString.isEmpty())
                             {
                                 userListString.add("There are no Sherpas available in this city!");
