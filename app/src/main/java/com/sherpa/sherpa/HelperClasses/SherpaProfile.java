@@ -19,7 +19,6 @@ public class SherpaProfile implements Profile{
 
     public SherpaProfile(ParseUser u)
     {
-
         user = u;
     }
 

@@ -22,7 +22,7 @@ import java.util.List;
 public class RatingSherpa extends AppCompatActivity  {
 
     private Button submitButton;
-    public RatingBar ratingSherpa;
+    private RatingBar ratingSherpa;
     private TextView ratingText;
 
 

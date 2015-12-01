@@ -27,9 +27,9 @@ import java.util.List;
 
 public class ViewProfile extends AppCompatActivity {
 
-    int rater;
-    float rating;
-    SherpaProfile user;
+    private int rater;
+    private float rating;
+    private SherpaProfile user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,20 +121,36 @@ public class ViewProfile extends AppCompatActivity {
         pq.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                rater = 0;
-                rating = 0;
+                setRater(0);
+                setRating(0);
                 if(list!=null) {
                     for (ParseObject po : list) {
-                        rating = rating + (float) po.getDouble("rating");
-                        rater++;
+                        setRating(getRating() + (float) po.getDouble("rating"));
+                        setRater(getRater() + 1);
                     }
                 }
-                rating = rating / rater;
+                setRating(getRating() / getRater());
                 RatingBar ratingBar1 = (RatingBar) findViewById(R.id.ratingBar);
                 ratingBar1.setRating(rating);
                 TextView raters = (TextView) findViewById(R.id.raters);
-                raters.setText("" + rater);
+                raters.setText("" + getRater());
             }
         });
+    }
+
+    public int getRater(){
+        return this.rater;
+    }
+
+    public void setRater(int rater1){
+        rater = rater1;
+    }
+
+    public float getRating(){
+        return rating;
+    }
+
+    public void setRating(float rating1){
+        rating = rating1;
     }
 }
