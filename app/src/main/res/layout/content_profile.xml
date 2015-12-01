@@ -47,11 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/textView4"
         android:layout_toRightOf="@+id/frameLayout"
         android:layout_toEndOf="@+id/frameLayout"
         android:layout_marginLeft="10dp"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/relativeLayout"
+        android:layout_above="@+id/textView5">
 
         <TextView
             android:layout_width="match_parent"
@@ -94,10 +94,10 @@
         android:layout_gravity="left|top"
         android:textColor="@android:color/white"
         android:textSize="18dp"
-        android:layout_below="@+id/frameLayout"
+        android:layout_marginTop="55dp"
+        android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -250,5 +250,61 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Can you provide transportation?"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/avyes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="18dp"
+        android:textColor="#ffffff" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:id="@+id/tryes"
+        android:checked="true"
+        android:layout_below="@+id/textView11"
+        android:layout_toLeftOf="@+id/trno"
+        android:layout_toStartOf="@+id/trno" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:id="@+id/trno"
+        android:checked="false"
+        android:layout_below="@+id/textView11"
+        android:layout_alignLeft="@+id/avno"
+        android:layout_alignStart="@+id/avno" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="If yes, for how many people?"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/tryes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="18dp"
+        android:textColor="#ffffff" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/tryes"
+        android:layout_alignEnd="@+id/tryes"
+        android:layout_above="@+id/city"
+        android:spinnerMode="dropdown"
+        android:layout_marginBottom="20dp" />
+
 </RelativeLayout>
 </ScrollView>

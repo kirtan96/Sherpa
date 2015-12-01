@@ -1,8 +1,6 @@
 package com.sherpa.sherpa.Activites;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,12 +11,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 import com.sherpa.sherpa.UserList;
 
@@ -32,6 +29,7 @@ public class ViewProfile extends AppCompatActivity {
 
     int rater;
     float rating;
+    SherpaProfile user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +40,20 @@ public class ViewProfile extends AppCompatActivity {
 
         Button chatButton = (Button) findViewById(R.id.current_chats);
 
-        ParseUser user = ParseUser.getCurrentUser();
-        user.put("online", true);
-        user.saveInBackground();
+        user = new SherpaProfile(ParseUser.getCurrentUser());
+        user.setAvailability(true);
+        user.saveUser();
         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
         TextView name = (TextView) findViewById(R.id.name);
         TextView city = (TextView) findViewById(R.id.city);
-        TextView placeCity = (TextView) findViewById(R.id.placeCity);
         TextView places = (TextView) findViewById(R.id.listOfPlaces);
         TextView cost = (TextView) findViewById(R.id.cost);
         TextView email = (TextView) findViewById(R.id.email);
+        TextView transportation = (TextView) findViewById(R.id.transportation);
+        transportation.setText(user.getTransportationString());
         email.setText(user.getEmail());
         TextView phone = (TextView) findViewById(R.id.phone);
-        phone.setText(user.getString("phone"));
+        phone.setText(user.getPhone());
         Button edit  = (Button) findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,20 +62,12 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
 
-        ParseFile file = user.getParseFile("pp");
-        file.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                profilePic.setImageBitmap(bmp);
-            }
-        });
-        name.setText(user.getString("firstname") + " " + user.getString("lastname"));
-        city.setText(city.getText() + user.getString("gcity"));
-        placeCity.setText(placeCity.getText() + user.getString("gcity") + ":");
-        places.setText(user.getString("places"));
+        user.setProfilePic(profilePic);
+        name.setText(user.getFirstname() + " " + user.getLastname());
+        city.setText(city.getText() + user.getCity());
+        places.setText(user.getPlaces());
         String hour;
-        if(user.getString("costType").equals("H"))
+        if(user.getCostType().equals("H"))
         {
             hour = "hour";
         }
@@ -84,7 +75,7 @@ public class ViewProfile extends AppCompatActivity {
         {
             hour = "day";
         }
-        cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
+        cost.setText(cost.getText() + "$" + user.getCost() + "/" + hour);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override

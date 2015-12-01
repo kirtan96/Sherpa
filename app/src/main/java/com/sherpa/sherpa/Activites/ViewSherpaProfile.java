@@ -1,8 +1,6 @@
 package com.sherpa.sherpa.Activites;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,13 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.Chat;
+import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.util.List;
@@ -31,7 +28,7 @@ import java.util.List;
 
 public class ViewSherpaProfile extends AppCompatActivity {
 
-    ParseUser user;
+    SherpaProfile user;
     String sherpaName;
     float rating;
     int rater;
@@ -50,48 +47,41 @@ public class ViewSherpaProfile extends AppCompatActivity {
         ParseUser.getCurrentUser().put("online", true);
         ParseUser.getCurrentUser().saveInBackground();
 
-        user = ParseUser.getCurrentUser();
+
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
                 for (final ParseUser u : list) {
                     if (u.getUsername().equals(username)) {
-                        user = u;
+                        user = new SherpaProfile(u);
 
                         final ImageView profilePic = (ImageView) findViewById(R.id.profilePicture);
                         TextView name = (TextView) findViewById(R.id.name);
                         TextView city = (TextView) findViewById(R.id.city);
-                        TextView placeCity = (TextView) findViewById(R.id.placeCity);
                         TextView places = (TextView) findViewById(R.id.listOfPlaces);
                         TextView cost = (TextView) findViewById(R.id.cost);
                         TextView email = (TextView) findViewById(R.id.email);
+                        TextView transportation = (TextView) findViewById(R.id.transportation);
                         email.setText(user.getEmail());
                         TextView phone = (TextView) findViewById(R.id.phone);
                         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-                        phone.setText(user.getString("phone"));
+                        phone.setText(user.getPhone());
 
-                        ParseFile file = user.getParseFile("pp");
-                        file.getDataInBackground(new GetDataCallback() {
-                            @Override
-                            public void done(byte[] data, ParseException e) {
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                profilePic.setImageBitmap(bmp);
-                            }
-                        });
-                        name.setText(user.getString("firstname") + " " + user.getString("lastname"));
-                        city.setText(city.getText() + user.getString("gcity"));
-                        placeCity.setText(placeCity.getText() + user.getString("gcity") + ":");
-                        places.setText(user.getString("places"));
+                        user.setProfilePic(profilePic);
+                        transportation.setText(user.getTransportationString());
+                        name.setText(user.getFirstname() + " " + user.getLastname());
+                        city.setText(city.getText() + user.getCity());
+                        places.setText(user.getPlaces());
                         String hour;
-                        if (user.getString("costType").equals("H")) {
+                        if (user.getCostType().equals("H")) {
                             hour = "hour";
                         } else {
                             hour = "day";
                         }
-                        cost.setText(cost.getText() + "$" + user.getDouble("cost") + "/" + hour);
-                        Button chatButton = (Button) findViewById(R.id.chatButton);
-                        chatButton.setText("Chat with " + user.getString("firstname") + " " + user.getString("lastname"));
+                        cost.setText(cost.getText() + "$" + user.getCost() + "/" + hour);
+                        Button chatButton = (Button) findViewById(R.id.edit);
+                        chatButton.setText("Chat with " + user.getFirstname() + " " + user.getLastname());
                         chatButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -100,7 +90,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
                         });
 
                         Button rateSherpa = (Button) findViewById(R.id.rateSherpa);
-                        rateSherpa.setText("Rate " + user.getString("firstname") + " " + user.getString("lastname"));
+                        rateSherpa.setText("Rate " + user.getFirstname() + " " + user.getLastname());
                         rateSherpa.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

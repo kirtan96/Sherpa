@@ -4,16 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
-import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.Interfaces.Profile;
-
-import java.util.List;
 
 /**
  * Created by Kirtan on 10/30/15.
@@ -171,23 +166,39 @@ public class SherpaProfile implements Profile{
         user.put("profile", b);
     }
 
-    public double getRating() {
-        rating = 0;
-        ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
-        pq.whereEqualTo("RateTo", getUsername());
-        pq.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                int rater = 0;
-                rating = 0;
-                for (ParseObject po : list) {
-                    rating = rating + po.getDouble("rating");
-                    rater++;
-                }
-
-                rating = rating / rater;
-            }
-        });
-        return rating;
+    @Override
+    public boolean getTransportation() {
+        return user.getBoolean("transportation");
     }
+
+    @Override
+    public int getPassengers() {
+        return user.getInt("passengers");
+    }
+
+    @Override
+    public void setTransportation(boolean transportation) {
+        user.put("transportation", transportation);
+    }
+
+    @Override
+    public void setPassengers(int passengers) {
+        user.put("passengers", passengers);
+    }
+
+    @Override
+    public String getTransportationString() {
+        String s;
+        if(getTransportation())
+        {
+            s = "Transportation: upto " + (getPassengers()-1) + " people";
+        }
+        else
+        {
+            s = "Transportation: none";
+        }
+        return s;
+    }
+
+
 }

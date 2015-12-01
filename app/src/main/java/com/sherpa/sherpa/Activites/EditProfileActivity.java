@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
@@ -32,7 +35,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 2;
     SherpaProfile user;
     boolean av;
+    boolean tr;
     boolean h;
+    int passengers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +54,33 @@ public class EditProfileActivity extends AppCompatActivity {
         final EditText city = (EditText) findViewById(R.id.city);
         final RadioButton avyes = (RadioButton) findViewById(R.id.avyes);
         final RadioButton avno = (RadioButton) findViewById(R.id.avno);
+        final RadioButton tryes = (RadioButton) findViewById(R.id.tryes);
+        final RadioButton trno = (RadioButton) findViewById(R.id.trno);
         final EditText places = (EditText) findViewById(R.id.places);
         final EditText cost = (EditText) findViewById(R.id.cost);
         final RadioButton hour = (RadioButton) findViewById(R.id.hourButton);
         final RadioButton day = (RadioButton) findViewById(R.id.dayButton);
         final EditText email = (EditText) findViewById(R.id.email);
         final EditText phone = (EditText) findViewById(R.id.phone);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Integer[] pass = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14, 15, 16, 17, 18, 19,20};
+        ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, pass);
+        spinner.setAdapter(integerArrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                passengers = (int)parent.getItemAtPosition(position) + 1;
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
-
+        tr = true;
         if(user.contains("pp")) {
             user.setProfilePic(profilePic);
         }
@@ -76,6 +98,23 @@ public class EditProfileActivity extends AppCompatActivity {
                 avyes.setChecked(false);
                 avno.setChecked(true);
                 av = false;
+            }
+        });
+        tryes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryes.setChecked(true);
+                trno.setChecked(false);
+                tr = true;
+
+            }
+        });
+        trno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryes.setChecked(false);
+                trno.setChecked(true);
+                tr = false;
             }
         });
         hour.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +144,19 @@ public class EditProfileActivity extends AppCompatActivity {
             avyes.setChecked(false);
             avno.setChecked(true);
             av = false;
+        }
+        if(user.getTransportation())
+        {
+            tryes.setChecked(true);
+            trno.setChecked(false);
+            tr = true;
+            spinner.setSelection(user.getPassengers()-2);
+        }
+        else
+        {
+            tryes.setChecked(false);
+            trno.setChecked(true);
+            tr = false;
         }
         city.setText(user.getCity());
         cost.setText(user.getCost() + "");
@@ -158,6 +210,11 @@ public class EditProfileActivity extends AppCompatActivity {
                         !city.getText().toString().contains("/") &&
                         Double.parseDouble(cost.getText().toString()) > 0) {
                     user.setCity(city.getText().toString());
+                    user.setTransportation(tr);
+                    if(tr)
+                    {
+                        user.setPassengers(passengers);
+                    }
                     user.setCost(Double.parseDouble(cost.getText().toString()));
                     user.setPlaces(places.getText().toString());
                     user.setAvailability(av);

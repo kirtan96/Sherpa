@@ -35,4 +35,9 @@ public interface Profile {
     boolean isNull();
     void addProfilPic(ParseFile pFile);
     void setProfileCreated(boolean b);
+    boolean getTransportation();
+    int getPassengers();
+    void setTransportation(boolean transportation);
+    void setPassengers(int passengers);
+    String getTransportationString();
 }
