@@ -122,71 +122,127 @@ public class SherpaProfile implements Profile{
         user.put("places", places);
     }
 
+    /**
+     * saves the user in the background
+     */
     @Override
     public void saveUser() {
         user.saveInBackground();
     }
 
+    /**
+     * if the backend contains the key
+     * @param s the key to be searched in the backend
+     * @return true or false
+     */
     @Override
     public Boolean contains(String s) {
         return user.containsKey(s);
     }
 
+    /**
+     * Sets the chattig with to the provided string
+     * @param s string to be put in the chattingWith key in the backend
+     */
     @Override
     public void setChattingWith(String s) {
         user.put("chattingWith", s);
     }
 
+    /**
+     * Set the online status of the user
+     * @param b true or false based on whether or not the user is online
+     */
     @Override
     public void setOnline(boolean b) {
         user.put("online", b);
     }
 
+    /**
+     * Sets the users logged in
+     * @param b true or false based on whether or not the user is logged in
+     */
     @Override
     public void setLoggedIn(boolean b) {
         user.put("loggedIn", true);
     }
 
+    /**
+     * Checks if the user has created tour guide profile
+     * @return true or false
+     */
     @Override
     public boolean hasCreatedProfile() {
         return user.getBoolean("profile");
     }
 
+    /**
+     * Checks if the user is null or not
+     * @return true or false
+     */
     @Override
     public boolean isNull() {
         return user == null;
     }
 
+    /**
+     * Adds the profile picture to the user
+     * @param pFile the profile picture
+     */
     @Override
     public void addProfilPic(ParseFile pFile) {
         user.put("pp", pFile);
     }
 
+    /**
+     * puts true or false based on whether or not the user has created the tour guide profile
+     * @param b true or false
+     */
     @Override
     public void setProfileCreated(boolean b) {
         user.put("profile", b);
     }
 
+    /**
+     * Gets the availability of the user's avaialbility on transportation
+     * @return True or false based on the availability
+     */
     @Override
     public boolean getTransportation() {
         return user.getBoolean("transportation");
     }
 
+    /**
+     * Gets the number of passengers that the user can provide transportation to
+     * @return the number of the passengers
+     */
     @Override
     public int getPassengers() {
         return user.getInt("passengers");
     }
 
+    /**
+     * Sets the transportation availability of the user
+     * @param transportation true or false based on user's availability
+     */
     @Override
     public void setTransportation(boolean transportation) {
         user.put("transportation", transportation);
     }
 
+    /**
+     * Sets the availability of the passengers that the user can give ride to
+     * @param passengers number of passengers
+     */
     @Override
     public void setPassengers(int passengers) {
         user.put("passengers", passengers);
     }
 
+    /**
+     * Gets the sentence of the user's transportation avaialability
+     * @return the full sentence
+     */
     @Override
     public String getTransportationString() {
         String s;
