@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to the search activity class
+     * It takes the current user to the search activity class
      */
     private void navigateToSearch() {
         Intent intent = new Intent(MainActivity.this, SearchSherpa.class);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to the activity where it displays the current user's tour
+     * It takes the current user to the activity where it displays the current user's tour
      * guide profile.
      */
     private void navigateToViewProfile() {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * When the user comes back on this activity class, it loads and updates all the information of the
+     * When the current user comes back on this activity class, it loads and updates all the information of the
      * current user
      */
     @Override
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * When the user leaves this activity class, it updates the current user's profile
+     * When the current user leaves this activity class, it updates the current user's profile
      */
     @Override
     protected void onPause() {
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to the class that displays user list of chat
+     * It takes the current user to the class that displays user list of chat
      */
     private void navigateToChat() {
         Intent intent = new Intent(MainActivity.this, UserList.class);
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to the activity where the user can edit their profile
+     * It takes the current user to the activity where the user can edit their profile
      */
     private void navigateToEditProfile()
     {
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to the login screen
+     * It takes the current user to the login screen
      */
     private void navigateToLogin()
     {
