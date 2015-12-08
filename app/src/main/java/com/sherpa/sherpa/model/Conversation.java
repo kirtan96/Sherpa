@@ -38,13 +38,9 @@ public class Conversation
 
     /**
      * Instantiates a new conversation.
-     *
-     * @param msg
-     *            the msg
-     * @param date
-     *            the date
-     * @param sender
-     *            the sender
+     * @param msg the msg
+     * @param date the date
+     * @param sender the sender
      */
     public Conversation(String msg, Date date, String sender)
     {
@@ -62,7 +58,6 @@ public class Conversation
 
     /**
      * Gets the msg.
-     *
      * @return the msg
      */
     public String getMsg()
@@ -72,9 +67,7 @@ public class Conversation
 
     /**
      * Sets the msg.
-     *
-     * @param msg
-     *            the new msg
+     * @param msg the new msg
      */
     public void setMsg(String msg)
     {
@@ -83,7 +76,6 @@ public class Conversation
 
     /**
      * Checks if is sent.
-     *
      * @return true, if is sent
      */
     public boolean isSent()
@@ -93,7 +85,6 @@ public class Conversation
 
     /**
      * Gets the date.
-     *
      * @return the date
      */
     public Date getDate()
@@ -103,9 +94,7 @@ public class Conversation
 
     /**
      * Sets the date.
-     *
-     * @param date
-     *            the new date
+     * @param date the new date
      */
     public void setDate(Date date)
     {
@@ -114,7 +103,6 @@ public class Conversation
 
     /**
      * Gets the sender.
-     *
      * @return the sender
      */
     public String getSender()
@@ -124,9 +112,7 @@ public class Conversation
 
     /**
      * Sets the sender.
-     *
-     * @param sender
-     *            the new sender
+     * @param sender the new sender
      */
     public void setSender(String sender)
     {
@@ -135,7 +121,6 @@ public class Conversation
 
     /**
      * Gets the status.
-     *
      * @return the status
      */
     public int getStatus()
@@ -145,9 +130,7 @@ public class Conversation
 
     /**
      * Sets the status.
-     *
-     * @param status
-     *            the new status
+     * @param status the new status
      */
     public void setStatus(int status)
     {

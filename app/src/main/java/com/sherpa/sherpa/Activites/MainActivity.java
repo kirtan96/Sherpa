@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     static SherpaProfile currentUser;
 
     /**
-     * It creates the content of the main activity and displays it to the user.
+     * It creates the content of the main activity and displays it to the current user.
      * @param savedInstanceState
      */
     @Override
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * It checks the item that the user selected and acts upon it
      * @param item - the item that the user selected from the menu
-     * @return -
+     * @return - true if the item selected matches the id or else it is false
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

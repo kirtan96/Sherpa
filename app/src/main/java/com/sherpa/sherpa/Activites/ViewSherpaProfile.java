@@ -39,7 +39,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
     RatingBar ratingBar;
 
     /**
-     * It creates the content of the view_sherpa_profile activity and displays it to the user
+     * It creates the content of the view_sherpa_profile activity and displays it to the current user
      * @param savedInstanceState
      */
     @Override

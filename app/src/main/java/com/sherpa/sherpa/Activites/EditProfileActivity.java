@@ -29,7 +29,10 @@ import com.sherpa.sherpa.R;
 import java.io.ByteArrayOutputStream;
 
 
-
+/**
+ * The Class EditProfileActivity lets the current user to change his/her information on the tour
+ * guide profile.
+ */
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
@@ -40,6 +43,10 @@ public class EditProfileActivity extends AppCompatActivity {
     boolean h;
     int passengers;
 
+    /**
+     * It creates the content of the activity_profile activity and displays it to the current user
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -244,6 +251,12 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * It lets the current user choose a photo from the phone
+     * @param requestCode to access the gallery on a phone
+     * @param resultCode allow the app the access the gallery or not
+     * @param data intent that takes the current user to the gallery
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode==RESULT_OK) {
             if (requestCode == PICK_FROM_GALLERY) {
@@ -262,6 +275,9 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the current user leaves this activity class, it updates the current user's profile
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -271,6 +287,10 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the current user comes back on this activity class, it loads and updates all the information of the
+     * current user
+     */
     @Override
     protected void onResume() {
         super.onResume();
