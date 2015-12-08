@@ -165,6 +165,10 @@ public class SherpaProfile implements Profile{
         user.put("costType", costType);
     }
 
+    /**
+     * Sets the profile picture of the user
+     * @param profilePic the ImageView to set the profile pic to
+     */
     @Override
     public void setProfilePic(final ImageView profilePic)
     {
