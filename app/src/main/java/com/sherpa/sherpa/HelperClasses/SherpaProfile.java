@@ -275,5 +275,23 @@ public class SherpaProfile implements Profile{
         return s;
     }
 
+    /**
+     * compares two users
+     * @param o user to be compared with
+     * @return true if they are same or else false
+     */
+    @Override
+    public boolean equals(Object o) {
 
+        if(o == this)
+        {
+           return true;
+        }
+        if(o == null || o.getClass() != this.getClass())
+        {
+            return false;
+        }
+        SherpaProfile user2 = (SherpaProfile) o;
+        return getUsername().equals(user2.getUsername());
+    }
 }
