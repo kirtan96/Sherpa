@@ -16,12 +16,22 @@ import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 import com.sherpa.sherpa.UserList;
 
+/**
+ * The Class MainActivity is the Activity class that holds the main screen and is activated
+ * at the start of the app. It checks if the user is logged in and prompts them to become
+ * a tourist or tour guide. It also allows the user to logout.
+ */
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     protected TextView welcome;
     protected Button tg;
     protected Button t;
     static SherpaProfile currentUser;
+
+    /**
+     * It creates the content of the main activity and displays it on the screen.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +75,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * It takes the user to the search activity class
+     */
     private void navigateToSearch() {
         Intent intent = new Intent(MainActivity.this, SearchSherpa.class);
         startActivity(intent);
     }
 
+    /**
+     * It takes the user to
+     */
     private void navigateToViewProfile() {
         Intent intent = new Intent(MainActivity.this, ViewProfile.class);
         startActivity(intent);

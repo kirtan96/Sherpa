@@ -1,5 +1,9 @@
 package com.sherpa.sherpa.HelperClasses;
 
+/**
+ * Created by Kirtan on 10/30/15.
+ */
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
@@ -10,9 +14,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.Interfaces.Profile;
 
-/**
- * Created by Kirtan on 10/30/15.
- */
+
 public class SherpaProfile implements Profile{
 
     private ParseUser user;

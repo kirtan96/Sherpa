@@ -1,5 +1,9 @@
 package com.sherpa.sherpa.HelperClasses;
 
+/**
+ * Created by Kirtan on 11/16/15.
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -7,9 +11,7 @@ import android.util.Log;
 import com.parse.ParsePushBroadcastReceiver;
 import com.sherpa.sherpa.UserList;
 
-/**
- * Created by Kirtan on 11/16/15.
- */
+
 public class Receiver extends ParsePushBroadcastReceiver {
 
     @Override

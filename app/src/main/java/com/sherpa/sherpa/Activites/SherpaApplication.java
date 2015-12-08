@@ -1,14 +1,16 @@
 package com.sherpa.sherpa.Activites;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-/**
- * Created by Kirtan on 10/21/15.
- */
+
 public class SherpaApplication extends Application{
     @Override
     public void onCreate() {

@@ -1,5 +1,8 @@
 package com.sherpa.sherpa.Activites;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -25,9 +28,7 @@ import com.sherpa.sherpa.R;
 
 import java.io.ByteArrayOutputStream;
 
-/**
- * Created by Kirtan on 10/21/15.
- */
+
 
 public class EditProfileActivity extends AppCompatActivity {
 

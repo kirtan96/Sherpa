@@ -1,5 +1,9 @@
 package com.sherpa.sherpa.Activites;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +25,7 @@ import com.sherpa.sherpa.UserList;
 
 import java.util.List;
 
-/**
- * Created by Kirtan on 10/21/15.
- */
+
 
 public class ViewProfile extends AppCompatActivity {
 

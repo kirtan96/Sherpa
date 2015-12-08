@@ -1,5 +1,9 @@
 package com.sherpa.sherpa.Activites;
 
+/**
+ * Created by Kirtan on 10/21/15.
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by Kirtan on 10/21/15.
- */
+
 
 public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
