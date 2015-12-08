@@ -36,7 +36,7 @@ public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
     ArrayList<SherpaProfile> userlist;
     SherpaProfile currentUser;
-    ArrayList<Double> rating = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

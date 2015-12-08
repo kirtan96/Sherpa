@@ -65,8 +65,9 @@ public class Chat extends CustomActivity
     /** The handler. */
     private static Handler handler;
 
-    /* (non-Javadoc)
-     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+    /**
+     * It creates the content of the chat activity and displays it to the current user.
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -96,8 +97,9 @@ public class Chat extends CustomActivity
         handler = new Handler();
     }
 
-    /* (non-Javadoc)
-     * @see android.support.v4.app.FragmentActivity#onResume()
+    /**
+     * When the current user comes back on this activity class, it loads and updates all the information of the
+     * current user
      */
     @Override
     protected void onResume()
@@ -111,9 +113,9 @@ public class Chat extends CustomActivity
         loadConversationList();
     }
 
-    /* (non-Javadoc)
-         * @see android.support.v4.app.FragmentActivity#onPause()
-         */
+    /**
+     * When the current user leaves this activity class, it updates the current user's profile
+     */
     @Override
     protected void onPause()
     {
@@ -126,8 +128,9 @@ public class Chat extends CustomActivity
         isRunning = false;
     }
 
-    /* (non-Javadoc)
-     * @see com.socialshare.custom.CustomFragment#onClick(android.view.View)
+    /**
+     * when the current user clicks, it sends the message to the receiver
+     * @param v the view on which the current user clicked
      */
     @Override
     public void onClick(View v)
@@ -182,6 +185,9 @@ public class Chat extends CustomActivity
         });
     }
 
+    /**
+     * when a message is sent, receiver gets a notification
+     */
     private void sendPushNotification() {
 
         final ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
@@ -205,6 +211,9 @@ public class Chat extends CustomActivity
 
     }
 
+    /**
+     * checks if the receiver is on the same chat as the current user
+     */
     private void getBuddy()
     {
         final ParseUser[] p = new ParseUser[1];
@@ -212,11 +221,9 @@ public class Chat extends CustomActivity
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
-                for (ParseUser u: list)
-                {
-                    if(u.getUsername().equals(buddy))
-                    {
-                        if(!u.getString("chattingWith").equals(ParseUser.getCurrentUser().getUsername())) {
+                for (ParseUser u : list) {
+                    if (u.getUsername().equals(buddy)) {
+                        if (!u.getString("chattingWith").equals(ParseUser.getCurrentUser().getUsername())) {
                             sendPushNotification();
                             break;
                         }
@@ -290,8 +297,9 @@ public class Chat extends CustomActivity
     private class ChatAdapter extends BaseAdapter
     {
 
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getCount()
+        /**
+         * gets the size of conversatrion list
+         * @return size of conversation list
          */
         @Override
         public int getCount()
@@ -299,8 +307,10 @@ public class Chat extends CustomActivity
             return convList.size();
         }
 
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getItem(int)
+        /**
+         * gets the selected conversation
+         * @param arg0 the position on the list
+         * @return the conversation at a selected position
          */
         @Override
         public Conversation getItem(int arg0)
@@ -308,8 +318,10 @@ public class Chat extends CustomActivity
             return convList.get(arg0);
         }
 
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getItemId(int)
+        /**
+         * gets the id for a selected positon
+         * @param arg0 the position on the list
+         * @return the id for the position
          */
         @Override
         public long getItemId(int arg0)
@@ -317,8 +329,12 @@ public class Chat extends CustomActivity
             return arg0;
         }
 
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+        /**
+         * gets the layout for a conversation
+         * @param pos the psoition of the conversation
+         * @param v the view for how the conversation is laid out
+         * @param arg2 the view group
+         * @return the overall layout of a conversation
          */
         @Override
         public View getView(int pos, View v, ViewGroup arg2)
@@ -355,8 +371,10 @@ public class Chat extends CustomActivity
 
     }
 
-    /* (non-Javadoc)
-     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+    /**
+     * It checks the item that the user selected and acts upon it
+     * @param item - the item that the user selected from the menu
+     * @return - true if the item selected matches the id or else it is false
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)

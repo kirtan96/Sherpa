@@ -27,7 +27,9 @@ import com.sherpa.sherpa.R;
 import java.util.List;
 
 
-
+/**
+ *
+ */
 public class ViewSherpaProfile extends AppCompatActivity {
 
     SherpaProfile user;
@@ -35,6 +37,11 @@ public class ViewSherpaProfile extends AppCompatActivity {
     float rating;
     int rater;
     RatingBar ratingBar;
+
+    /**
+     * It creates the content of the view_sherpa_profile activity and displays it to the current user
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +116,11 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
     }
 
+    /**
+     * It takes the user to the class that displays a screen where the current user can rate the
+     * tour guide
+     * @param name - the name of the tour guide being rated
+     */
     private void navigateToRate(String name) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Rating");
         query.whereEqualTo("RateTo", name);
@@ -129,7 +141,9 @@ public class ViewSherpaProfile extends AppCompatActivity {
         });
 
     }
-
+    /**
+     * It takes the current user to the chat screen where the user can chat with the tour guide
+     */
     private void navigateToChat()
     {
         Intent intent = new Intent(this, Chat.class);
@@ -137,6 +151,9 @@ public class ViewSherpaProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * When the current user leaves this activity class, it updates the current user's profile
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -146,6 +163,10 @@ public class ViewSherpaProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the current user comes back on this activity class, it loads and updates all the
+     * information of the current user
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -155,7 +176,11 @@ public class ViewSherpaProfile extends AppCompatActivity {
         }
         updateRating(getIntent().getStringExtra("username"));
     }
-//updates rating
+
+    /**
+     * It updates the current rating for the tour guide being rated
+     * @param name - the name of the tour guide being rated
+     */
     public void updateRating(String name){
         ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
         pq.whereEqualTo("RateTo", name);
