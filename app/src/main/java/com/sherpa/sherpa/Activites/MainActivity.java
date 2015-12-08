@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     static SherpaProfile currentUser;
 
     /**
-     * It creates the content of the main activity and displays it on the screen.
+     * It creates the content of the main activity and displays it to the user.
      * @param savedInstanceState
      */
     @Override
@@ -84,13 +84,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * It takes the user to
+     * It takes the user to the activity where it displays the current user's tour
+     * guide profile.
      */
     private void navigateToViewProfile() {
         Intent intent = new Intent(MainActivity.this, ViewProfile.class);
         startActivity(intent);
     }
 
+    /**
+     * It loads the menu on the main activity
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * When the user comes back on this activity class, it loads and updates all the information of the
+     * current user
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -109,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the user leaves this activity class, it updates the current user's profile
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -118,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * It checks the item that the user selected and acts upon it
+     * @param item - the item that the user selected from the menu
+     * @return -
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -144,17 +162,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * It takes the user to the class that displays user list of chat
+     */
     private void navigateToChat() {
         Intent intent = new Intent(MainActivity.this, UserList.class);
         startActivity(intent);
     }
 
+    /**
+     * It takes the user to the activity where the user can edit their profile
+     */
     private void navigateToEditProfile()
     {
         Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * It takes the user to the login screen
+     */
     private void navigateToLogin()
     {
         Intent intent = new Intent(this, LoginActivity.class);
