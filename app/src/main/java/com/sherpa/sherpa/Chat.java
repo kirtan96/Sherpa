@@ -46,7 +46,7 @@ public class Chat extends CustomActivity
     /** The Conversation list. */
     private ArrayList<Conversation> convList;
 
-
+    Conversation one = Conversation.getInstance();
     /** The chat adapter. */
     private ChatAdapter adp;
 
@@ -175,11 +175,11 @@ public class Chat extends CustomActivity
             public void done(ParseException e)
             {
                 if (e == null) {
-                    c.setStatus(Conversation.STATUS_SENT);
+                    c.setStatus(one.STATUS_SENT);
                     getBuddy();
                 }
                 else
-                    c.setStatus(Conversation.STATUS_FAILED);
+                    c.setStatus(one.STATUS_FAILED);
                 adp.notifyDataSetChanged();
             }
         });
