@@ -4,6 +4,8 @@ package com.sherpa.sherpa.model;
  * Created by mohnishkadakia on 11/1/15.
  */
 
+import android.widget.Toast;
+
 import com.parse.ParseUser;
 import com.sherpa.sherpa.UserList;
 
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 public class Conversation
 {
+    private static  Conversation con = null;
 
     /** The Constant STATUS_SENDING. */
     public static final int STATUS_SENDING = 0;
@@ -36,6 +39,11 @@ public class Conversation
     /** The sender. */
     private String sender;
 
+    public static Conversation getInstance(){
+        return con;
+    }
+
+
     /**
      * Instantiates a new conversation.
      * @param msg the msg
@@ -49,11 +57,13 @@ public class Conversation
         this.sender = sender;
     }
 
+
     /**
      * Instantiates a new conversation.
      */
-    public Conversation()
+    private Conversation()
     {
+
     }
 
     /**
