@@ -20,13 +20,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,10 @@ import java.util.List;
 
 
 public class SearchSherpa extends AppCompatActivity {
-    ArrayList<String> userListString;
+    ArrayList<String> userListString = null;
     ArrayList<SherpaProfile> userlist;
     SherpaProfile currentUser;
+    Class loadedList = null;
 
 
     @Override
@@ -53,6 +55,16 @@ public class SearchSherpa extends AppCompatActivity {
         currentUser.setOnline(true);
         currentUser.saveUser();
 
+        try {
+            loadedList = Class.forName("java.util.ArrayList");
+            userListString = (ArrayList) loadedList.newInstance();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         final EditText editText = (EditText) findViewById(R.id.searchText);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -84,7 +96,7 @@ public class SearchSherpa extends AppCompatActivity {
                                             total++;
                                             if (user.getAvailability()) {
                                                 userlist.add(user);
-                                                i++;
+                                                //i++;
 
                                                 userListString.add(user.getFirstname() + " " +
                                                                 user.getLastname() +
@@ -104,6 +116,16 @@ public class SearchSherpa extends AppCompatActivity {
                                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(SearchSherpa.this,
                                             android.R.layout.simple_list_item_1, userListString);
                                     listView.setAdapter(arrayAdapter);
+                                }
+                                try {
+                                    Method m = loadedList.getMethod("size", (Class[]) null);
+                                    i = (int) m.invoke(userListString, null);
+                                } catch (NoSuchMethodException e1) {
+                                    e1.printStackTrace();
+                                } catch (InvocationTargetException e1) {
+                                    e1.printStackTrace();
+                                } catch (IllegalAccessException e1) {
+                                    e1.printStackTrace();
                                 }
                                 availableNumber.setText(i + " of " + total + " Sherpas available");
                             }
