@@ -129,7 +129,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                testName = e.toString();
+                //testName = e.toString();
                 if (list.isEmpty()) {
                     Intent intent = new Intent(ViewSherpaProfile.this, RatingSherpa.class);
                     intent.putExtra("username", sherpaName);
@@ -191,7 +191,7 @@ public class ViewSherpaProfile extends AppCompatActivity {
         pq.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                testName = e.toString();
+                //testName = e.toString();
                 rater = 0;
                 rating = 0;
                 for (ParseObject po : list) {

@@ -289,6 +289,10 @@ public class Chat extends CustomActivity
 
     }
 
+    public ArrayList<Conversation> getConvList() {
+        return convList;
+    }
+
 
     /**
      * The Class ChatAdapter is the adapter class for Chat ListView. This

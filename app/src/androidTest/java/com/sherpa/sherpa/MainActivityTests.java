@@ -8,8 +8,7 @@ import com.sherpa.sherpa.Activites.MainActivity;
 /**
  * Created by yashp_000 on 12/8/2015.
  */
-public class MainActivityTests
-        extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActivity> {
     private Button tg;
     private Button t;
 

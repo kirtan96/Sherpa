@@ -13,21 +13,23 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2<Ed
     private EditProfileActivity profileActivity;
     private RadioButton avyes;
     private RadioButton avno;
-    /**
-     * Creates an {@link ActivityInstrumentationTestCase2}.
-     */
+
+
     public EditProfileActivityTest() {
         super(EditProfileActivity.class);
     }
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         profileActivity = getActivity();
     }
+
     @Test
     public void testActivityExists() {
        assertNotNull(profileActivity);
     }
+
     @Test
     public void testForEditingAvailability()
     {
