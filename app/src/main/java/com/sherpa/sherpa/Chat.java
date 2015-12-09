@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Telephony;
 import android.text.InputType;
 import android.text.format.DateUtils;
 import android.view.MenuItem;
@@ -45,9 +44,8 @@ public class Chat extends CustomActivity
 {
 
     /** The Conversation list. */
-    public ArrayList<Conversation> convList;
+    private ArrayList<Conversation> convList;
 
-    Conversation one = Conversation.getInstance();
 
     /** The chat adapter. */
     private ChatAdapter adp;
@@ -177,11 +175,11 @@ public class Chat extends CustomActivity
             public void done(ParseException e)
             {
                 if (e == null) {
-                    c.setStatus(one.STATUS_SENT);
+                    c.setStatus(Conversation.STATUS_SENT);
                     getBuddy();
                 }
                 else
-                    c.setStatus(one.STATUS_FAILED);
+                    c.setStatus(Conversation.STATUS_FAILED);
                 adp.notifyDataSetChanged();
             }
         });
@@ -298,6 +296,7 @@ public class Chat extends CustomActivity
      */
     private class ChatAdapter extends BaseAdapter
     {
+
         /**
          * gets the size of conversatrion list
          * @return size of conversation list

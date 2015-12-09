@@ -27,8 +27,6 @@ import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.io.ByteArrayOutputStream;
-
-
 /**
  * The Class EditProfileActivity lets the current user to change his/her information on the tour
  * guide profile.
@@ -36,6 +34,8 @@ import java.io.ByteArrayOutputStream;
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView profilePic;
+    private RadioButton avyes;
+    private RadioButton avno;
     private static final int PICK_FROM_GALLERY = 2;
     SherpaProfile user;
     boolean av;
@@ -53,15 +53,14 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        avyes = (RadioButton) findViewById(R.id.avyes);
+        avno = (RadioButton) findViewById(R.id.avno);
         user = new SherpaProfile(ParseUser.getCurrentUser());
         user.setOnline(true);
         user.saveUser();
         profilePic = (ImageView) findViewById(R.id.profilePic);
         TextView name = (TextView) findViewById(R.id.name);
         final EditText city = (EditText) findViewById(R.id.city);
-        final RadioButton avyes = (RadioButton) findViewById(R.id.avyes);
-        final RadioButton avno = (RadioButton) findViewById(R.id.avno);
         final RadioButton tryes = (RadioButton) findViewById(R.id.tryes);
         final RadioButton trno = (RadioButton) findViewById(R.id.trno);
         final EditText places = (EditText) findViewById(R.id.places);
@@ -297,6 +296,23 @@ public class EditProfileActivity extends AppCompatActivity {
         if(!user.isNull()) {
             user.setOnline(true);
             user.saveUser();
+        }
+    }
+
+
+    public boolean isAv() {
+        return av;
+    }
+
+    public void setAv(boolean avSelect) {
+        av = avSelect;
+        if(avSelect){
+            avyes.setChecked(true);
+            avno.setChecked(false);
+        }
+        else {
+            avno.setChecked(true);
+            avyes.setChecked(false);
         }
     }
 }
