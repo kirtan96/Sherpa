@@ -59,14 +59,11 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
 
     /**
      * Sets the touch and click listener for a view with given id.
-     *
-     * @param id
-     *            the id
+     * @param id the id
      * @return the view on which listeners applied
      */
     public View setTouchNClick(int id)
     {
-
         View v = setClick(id);
         if (v != null)
             v.setOnTouchListener(TOUCH);
@@ -75,14 +72,11 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
 
     /**
      * Sets the click listener for a view with given id.
-     *
-     * @param id
-     *            the id
+     * @param id the id
      * @return the view on which listener is applied
      */
     public View setClick(int id)
     {
-
         View v = findViewById(id);
         if (v != null)
             v.setOnClickListener(this);
@@ -95,7 +89,6 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
     @Override
     public void onClick(View v)
     {
-
     }
 }
 

@@ -3,7 +3,6 @@ package com.sherpa.sherpa;
 /**
  * Created by mohnishkadakia on 11/1/15.
  */
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,28 +42,21 @@ import java.util.List;
 public class Chat extends CustomActivity
 {
 
+
     /** The Conversation list. */
     private ArrayList<Conversation> convList;
-
-
     /** The chat adapter. */
     private ChatAdapter adp;
-
     /** The Editext to compose the message. */
     private EditText txt;
-
     /** The user name of buddy. */
     private String buddy;
-
     /** The date of last message in conversation. */
     private Date lastMsgDate;
-
     /** Flag to hold if the activity is running or not. */
     private boolean isRunning;
-
     /** The handler. */
     private static Handler handler;
-
     /**
      * It creates the content of the chat activity and displays it to the current user.
      * @param savedInstanceState
@@ -148,7 +140,7 @@ public class Chat extends CustomActivity
      * is empty otherwise it creates a Parse object for Chat message and send it
      * to Parse server.
      */
-    private void sendMessage()
+    protected void sendMessage()
     {
         if (txt.length() == 0)
             return;
@@ -185,6 +177,10 @@ public class Chat extends CustomActivity
         });
     }
 
+    public ArrayList<Conversation> getConvList()
+    {
+        return convList;
+    }
     /**
      * when a message is sent, receiver gets a notification
      */
@@ -296,7 +292,6 @@ public class Chat extends CustomActivity
      */
     private class ChatAdapter extends BaseAdapter
     {
-
         /**
          * gets the size of conversatrion list
          * @return size of conversation list
@@ -306,7 +301,6 @@ public class Chat extends CustomActivity
         {
             return convList.size();
         }
-
         /**
          * gets the selected conversation
          * @param arg0 the position on the list
@@ -317,7 +311,6 @@ public class Chat extends CustomActivity
         {
             return convList.get(arg0);
         }
-
         /**
          * gets the id for a selected positon
          * @param arg0 the position on the list
@@ -328,7 +321,6 @@ public class Chat extends CustomActivity
         {
             return arg0;
         }
-
         /**
          * gets the layout for a conversation
          * @param pos the psoition of the conversation
@@ -368,7 +360,6 @@ public class Chat extends CustomActivity
 
             return v;
         }
-
     }
 
     /**
@@ -385,5 +376,6 @@ public class Chat extends CustomActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.test.ActivityInstrumentationTestCase2;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView welcome;
     protected Button tg;
     protected Button t;
-    static SherpaProfile currentUser;
+    private static SherpaProfile currentUser;
 
     /**
      * It creates the content of the main activity and displays it to the current user.
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             currentUser.setLoggedIn(true);
             currentUser.saveUser();
             welcome = (TextView) findViewById(R.id.welcome);
+
             tg = (Button) findViewById(R.id.tgButton);
             t = (Button) findViewById(R.id.touristButton);
             welcome.setText("Welcome " + currentUser.getFirstname() + " " +
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * It loads the menu on the main activity
      * @param menu
-     * @return
+     * @return true if the action bar is present or false.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -189,4 +191,6 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+
 }

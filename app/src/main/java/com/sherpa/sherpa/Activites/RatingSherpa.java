@@ -1,5 +1,8 @@
 package com.sherpa.sherpa.Activites;
 
+/**
+ * Created by Yash Parikh on 11/1/15.
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +27,6 @@ public class RatingSherpa extends AppCompatActivity  {
     private Button submitButton;
     private RatingBar ratingSherpa;
     private TextView ratingText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

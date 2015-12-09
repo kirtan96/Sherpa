@@ -29,10 +29,6 @@ import com.sherpa.sherpa.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
-
 public class SearchSherpa extends AppCompatActivity {
     ArrayList<String> userListString;
     ArrayList<SherpaProfile> userlist;

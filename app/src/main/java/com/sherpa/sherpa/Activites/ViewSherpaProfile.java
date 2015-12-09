@@ -25,12 +25,10 @@ import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.util.List;
-
-
 /**
  *
  */
-public class ViewSherpaProfile extends AppCompatActivity {
+public class ViewSherpaProfile extends AppCompatActivity  {
 
     SherpaProfile user;
     String sherpaName;
@@ -55,7 +53,6 @@ public class ViewSherpaProfile extends AppCompatActivity {
 
         ParseUser.getCurrentUser().put("online", true);
         ParseUser.getCurrentUser().saveInBackground();
-
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
