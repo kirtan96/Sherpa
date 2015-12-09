@@ -25,16 +25,19 @@ import com.sherpa.sherpa.HelperClasses.SherpaProfile;
 import com.sherpa.sherpa.R;
 
 import java.util.List;
+
+
 /**
  *
  */
-public class ViewSherpaProfile extends AppCompatActivity  {
+public class ViewSherpaProfile extends AppCompatActivity {
 
     SherpaProfile user;
     String sherpaName;
     float rating;
     int rater;
     RatingBar ratingBar;
+    public static String testName;
 
     /**
      * It creates the content of the view_sherpa_profile activity and displays it to the current user
@@ -53,6 +56,7 @@ public class ViewSherpaProfile extends AppCompatActivity  {
 
         ParseUser.getCurrentUser().put("online", true);
         ParseUser.getCurrentUser().saveInBackground();
+
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -125,18 +129,20 @@ public class ViewSherpaProfile extends AppCompatActivity  {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                testName = e.toString();
                 if (list.isEmpty()) {
                     Intent intent = new Intent(ViewSherpaProfile.this, RatingSherpa.class);
                     intent.putExtra("username", sherpaName);
                     startActivity(intent);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ViewSherpaProfile.this, "You have already rated this Sherpa!", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
+    }
+    public void navigateToRateHelper(String n){
+        navigateToRate(n);
     }
     /**
      * It takes the current user to the chat screen where the user can chat with the tour guide
@@ -180,10 +186,12 @@ public class ViewSherpaProfile extends AppCompatActivity  {
      */
     public void updateRating(String name){
         ParseQuery<ParseObject> pq = ParseQuery.getQuery("Rating");
+
         pq.whereEqualTo("RateTo", name);
         pq.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                testName = e.toString();
                 rater = 0;
                 rating = 0;
                 for (ParseObject po : list) {
