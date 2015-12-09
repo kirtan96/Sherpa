@@ -14,9 +14,7 @@ import java.util.ArrayList;
 public class ChatTests extends ActivityInstrumentationTestCase2<Chat>
 {
     private Chat myChat = new Chat();
-    /**
-     * Creates an {@link ActivityInstrumentationTestCase2}.
-     */
+
     public ChatTests() {
         super(Chat.class);
     }
